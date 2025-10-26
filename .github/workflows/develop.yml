@@ -39,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: develop-build
-          path: ./dist
+          path: ./ARCUS-frontend/dist
