@@ -1,0 +1,43 @@
+# ARCUS Deploy
+
+name: ARCUS CI/CD
+
+on:
+  # Works when pushed to deploy branch
+  push:
+    branches:
+      - deploy
+  pull_request:
+    branches:
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Docker hub login
+      - name: Login Docker hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKERUSERNAME}}
+          password: ${{secrets.DOCKERTOKEN}}
+
+      # Docker image build & push
+      - name: Docker image build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./
+          push: true
+          tags: ${{secrets.DOCKERUSERNAME}}/ARCUS:latest
+
+      # Deploy to main server via SSH
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PUBLICIP}}
+          username: cheonbi
+          key: ${{ secrets.PRIVATEKEY}}
+          port: 22
