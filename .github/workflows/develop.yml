@@ -5,7 +5,7 @@ name: ARCUS CI/CD
 on:
   push:
     branches:
-      - deploy # Works when pushed to deploy branch
+      - develop # Works when pushed to deploy branch
 
 jobs:
   deploy:
@@ -33,9 +33,9 @@ jobs:
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.HAPPY_PUBLIC_IP }}
+          host: ${{ }}
           username: cheonbi
-          key: ${{ secrets.HAPPY_PRIVATE_KEY }}
+          key: ${{ }}
           port: 22
 
           # run deploy shell script
