@@ -1,0 +1,42 @@
+# ARCUS Deploy
+
+name: ARCUS CI/CD
+
+on:
+  # Works when push or pull request to develop branch
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+defaults:
+  run:
+    working-directory: ./ARCUS-frontend
+
+jobs:
+  develop-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22.20.0"
+          check-latest: false
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build
+
+      # Artifact
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: develop-build
+          path: ./ARCUS-frontend/dist
