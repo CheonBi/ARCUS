@@ -1,4 +1,9 @@
 name: ARCUS
+
+networks:
+  arcus-network:
+    driver: bridge
+
 services:
   frontend:
     container_name: arcus_frontend
@@ -21,6 +26,4 @@ services:
     depends_on:
       - frontend
 
-networks:
-  arcus-network:
-    driver: bridge
+
