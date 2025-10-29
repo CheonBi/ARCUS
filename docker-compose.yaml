@@ -12,12 +12,12 @@ services:
       dockerfile: Dockerfile
     networks:
       - arcus-network
-  
+
   nginx:
     image: nginx:latest
     networks:
       - arcus-network
-    restart:always
+    restart: always
     volumes:
       - ./conf/:/etc/nginx/conf.d
     container_name: arcus_nginx_proxy
@@ -25,5 +25,3 @@ services:
       - 80:80
     depends_on:
       - frontend
-
-
