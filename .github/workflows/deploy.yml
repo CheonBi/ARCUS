@@ -1,6 +1,6 @@
 # ARCUS Deploy
 
-name: ARCUS CI/CD
+name: ARCUS CD
 
 on:
   # Works when pushed to deploy branch
@@ -16,19 +16,19 @@ jobs:
       - name: Add Remote Host Key to Known Hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.PUBLICIP }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.GCP_IP }} >> ~/.ssh/known_hosts
 
       # Deploy to main server via SSH
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.PUBLICIP}}
-          username: cheonbi
-          key: ${{ secrets.PRIVATEKEY}}
+          host: ${{ secrets.GCP_IP}}
+          username: ${{secrets.GCP_USER}}
+          key: ${{ secrets.GCP_PRIVATE_KEY}}
           port: 22
+
           script: |
-            REMOTE_USER="cheonbi"
-            REMOTE_DIR="/home/${REMOTE_USER}/ARCUS"
+            REMOTE_DIR="/home/${{secrets.GCP_USER}}/ARCUS"
             REPO_URL="git@ARCUS-git:CheonBi/ARCUS.git"
             TARGET_BRANCH="deploy"
 
@@ -36,9 +36,8 @@ jobs:
 
             if [ ! -d "${REMOTE_DIR}" ]; then
               echo "Directory not found. Cloning repository ${REPO_URL}..."
-              cd /home/${REMOTE_USER}
+              cd /home/${{secrets.GCP_USER}}
               git clone ${REPO_URL}
-
               cd ${REMOTE_DIR}
               git checkout ${TARGET_BRANCH}
             else

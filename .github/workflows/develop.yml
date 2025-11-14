@@ -1,6 +1,6 @@
 # ARCUS Deploy
 
-name: ARCUS CI/CD
+name: ARCUS CI
 
 on:
   # Works when push or pull request to develop branch
