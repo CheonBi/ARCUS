@@ -4,6 +4,9 @@ networks:
   arcus-network:
     driver: bridge
 
+enviornment:
+  TZ: Asia/Seoul
+
 services:
   frontend:
     container_name: arcus_frontend
