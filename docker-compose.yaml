@@ -4,7 +4,7 @@ networks:
   arcus-network:
     driver: bridge
 
-enviornment:
+environment:
   TZ: Asia/Seoul
 
 services:
