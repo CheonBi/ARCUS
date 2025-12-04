@@ -1,0 +1,61 @@
+@layer components {
+  .app-layout {
+    @apply flex min-h-screen;
+    background-color: rgb(var(--layout-bg));
+    color: rgb(var(--layout-fg));
+  }
+
+  .app-sidebar {
+    @apply flex flex-col border-r px-4 py-6;
+    background-color: rgb(var(--sidebar-bg));
+    border-color: rgb(var(--sidebar-border));
+    width: var(--sidebar-width);
+  }
+
+  .app-sidebar .logo {
+    @apply mb-4 text-xl font-semibold tracking-tight;
+  }
+
+  .app-sidebar button.theme-toggle {
+    @apply mt-auto inline-flex items-center justify-center rounded-md px-3 py-2 text-xs;
+  }
+
+  .app-sidebar button.theme-toggle:hover {
+    background-color: rgb(var(--main-bg-reverse) / 0.3);
+  }
+
+  .app-sidebar nav {
+    @apply flex flex-col gap-3;
+  }
+
+  .app-sidebar nav a {
+    @apply flex items-center gap-4 px-3 py-2 rounded-lg text-sm font-medium transition-colors;
+    color: rgb(var(--nav-text));
+  }
+
+  .app-sidebar nav a:hover {
+    background-color: rgb(var(--nav-bg-hover));
+    color: rgb(var(--nav-hover-text));
+  }
+
+  /* NavLink active */
+  .app-sidebar nav a.active {
+    background-color: rgb(var(--nav-bg-active));
+    color: rgb(var(--nav-active-text));
+  }
+
+  .app-main {
+    @apply flex flex-col flex-1 min-w-0;
+    background-color: rgb(var(--main-bg));
+  }
+
+  .app-header {
+    @apply flex items-center justify-between h-14 px-6 border-b backdrop-blur;
+    background-color: rgb(var(--header-bg) / 0.8);
+    border-color: rgb(var(--header-border));
+  }
+
+  .app-content {
+    @apply flex-1 min-h-0 overflow-y-auto px-6 py-6;
+  }
+}

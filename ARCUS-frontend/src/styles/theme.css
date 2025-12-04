@@ -1,0 +1,59 @@
+/* ============ Global Tokens ============ */
+:root {
+  --layout-bg: 15 23 42; /* slate-950 */
+  --layout-fg: 248 250 252; /* slate-50 */
+
+  --main-bg: 15 23 42; /* slate-900 */
+  --main-bg-reverse: 255 255 255; /* white */
+
+  --sidebar-bg: 15 23 42; /* slate-950 */
+  --sidebar-border: 30 41 59; /* slate-800 */
+
+  --header-bg: 15 23 42; /* slate-900 */
+  --header-border: 30 41 59; /* slate-800 */
+
+  --nav-text: 203 213 225; /* slate-300 */
+  --nav-text-active: 255 255 255; /* white */
+  --nav-bg-hover: 51 65 85; /* slate-700 */
+  --nav-bg-active: 30 41 59; /* slate-800 */
+}
+
+/* ============ Light Theme Overrides ============ */
+body[data-theme="light"] {
+  --layout-bg: 248 250 252; /* slate-50 */
+  --layout-fg: 15 23 42; /* slate-900 */
+
+  --main-bg: 255 255 255; /* white */
+  --main-bg-reverse: 15 23 42; /* slate-900 */
+
+  --sidebar-bg: 241 245 249; /* slate-100 */
+  --sidebar-border: 226 232 240; /* slate-200 */
+
+  --header-bg: 255 255 255; /* white */
+  --header-border: 226 232 240; /* slate-200 */
+
+  --nav-text: 71 85 105; /* slate-600 */
+  --nav-text-active: 30 41 59; /* slate-800 */
+  --nav-bg-hover: 226 232 240; /* slate-200 */
+  --nav-bg-active: 203 213 225; /* slate-300 */
+}
+
+/* ============ Dark Theme Overrides ============ */
+body[data-theme="dark"] {
+  --layout-bg: 15 23 42; /* slate-950 */
+  --layout-fg: 248 250 252;
+
+  --main-bg: 15 23 42; /* slate-900 */
+  --main-bg-reverse: 255 255 255; /* white */
+
+  --sidebar-bg: 15 23 42; /* slate-950 */
+  --sidebar-border: 30 41 59; /* slate-800 */
+
+  --header-bg: 15 23 42; /* slate-900 */
+  --header-border: 30 41 59; /* slate-800 */
+
+  --nav-text: 203 213 225; /* slate-300 */
+  --nav-text-active: 255 255 255; /* white */
+  --nav-bg-hover: 51 65 85; /* slate-700 */
+  --nav-bg-active: 30 41 59; /* slate-800 */
+}
