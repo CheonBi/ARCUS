@@ -16,6 +16,17 @@
   --nav-text-active: 255 255 255; /* white */
   --nav-bg-hover: 51 65 85; /* slate-700 */
   --nav-bg-active: 30 41 59; /* slate-800 */
+
+  /* Theme Toggle*/
+  --toggle-track-bg: 203 213 225; /* slate-300 */
+  --toggle-track-bg-dark: 51 65 85; /* slate-700 */
+
+  --toggle-thumb: 255 255 255; /* white */
+
+  --toggle-icon-sun: 248 250 252; /* slate-50 */
+  --toggle-icon-moon: 30 41 59; /* slate-800 */
+
+  --toggle-icon-active: 255 255 255;
 }
 
 /* ============ Light Theme Overrides ============ */
@@ -36,6 +47,11 @@ body[data-theme="light"] {
   --nav-text-active: 30 41 59; /* slate-800 */
   --nav-bg-hover: 226 232 240; /* slate-200 */
   --nav-bg-active: 203 213 225; /* slate-300 */
+
+  --toggle-track: var(--toggle-track-bg);
+  --toggle-sun-color: var(--toggle-icon-sun);
+  --toggle-moon-color: var(--toggle-icon-moon);
+  --toggle-thumb: 255 255 255; /* white */
 }
 
 /* ============ Dark Theme Overrides ============ */
@@ -56,4 +72,9 @@ body[data-theme="dark"] {
   --nav-text-active: 255 255 255; /* white */
   --nav-bg-hover: 51 65 85; /* slate-700 */
   --nav-bg-active: 30 41 59; /* slate-800 */
+
+  --toggle-track: var(--toggle-track-bg-dark);
+  --toggle-sun-color: var(--toggle-icon-sun);
+  --toggle-moon-color: var(--toggle-icon-active);
+  --toggle-thumb: 203 213 225; /* slate-300 */
 }

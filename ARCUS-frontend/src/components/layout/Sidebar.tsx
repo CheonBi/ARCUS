@@ -1,5 +1,6 @@
 import { ROUTES } from "@app/config/routes";
 import { SidebarNavItem } from "@components/ui/SidebarNavItem";
+import { ThemeToggle } from "@components/ui/ThemeToggle";
 import { ThemeToggleButton } from "@components/ui/ThemeToggleButton";
 import { Home, Ticket, BarChart3, Activity } from "lucide-react";
 
@@ -15,7 +16,9 @@ export const Sidebar = () => {
         <SidebarNavItem to={ROUTES.MONITORING} label="Monitoring" icon={<Activity size={18} />} />
       </nav>
 
-      <ThemeToggleButton />
+      <ThemeToggle>
+        <ThemeToggleButton />
+      </ThemeToggle>
     </aside>
   );
 };
