@@ -13,10 +13,12 @@ export const SidebarNavItem = ({ to, label, icon, className }: SidebarNavItemPro
     <NavLink
       to={to}
       end
-      className={({ isActive }) => [isActive ? "active" : "", className ?? ""].join(" ")}
+      className={({ isActive }) =>
+        ["sidebar-nav-item", isActive ? "sidebar-nav-item-active" : "", className ?? ""].join(" ")
+      }
     >
-      {icon && <span className="text-lg opacity-80">{icon}</span>}
-      <span>{label}</span>
+      {icon && <span className="sidebar-nav-item-icon">{icon}</span>}
+      <span className="sidebar-nav-item-label">{label}</span>
     </NavLink>
   );
 };

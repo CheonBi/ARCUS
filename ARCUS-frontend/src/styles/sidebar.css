@@ -1,0 +1,161 @@
+@layer components {
+  .app-sidebar {
+    @apply flex flex-col border-r px-4 py-4 
+    transition-[width] duration-500 ease-in-out;
+    width: var(--sidebar-width-expanded);
+    background-color: rgb(var(--sidebar-bg, 15 23 42));
+    border-color: rgb(var(--sidebar-border, 30 41 59));
+  }
+
+  .app-sidebar .sidebar-top {
+    position: relative;
+    margin-bottom: 2rem;
+    display: flex;
+    font-size: 1rem;
+    /* border-bottom: 1px solid rgb(var(--sidebar-border)); */
+  }
+
+  .sidebar-top .logo {
+    @apply px-4 py-2;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo .logo-text {
+    margin-left: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .sidebar-top .sidebar-collapse-btn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    font-size: 1rem;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Middle for Nav */
+  .app-sidebar nav.sidebar-middle.sidebar-nav {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgb(var(--sidebar-border));
+  }
+
+  .sidebar-nav .sidebar-nav-item {
+    @apply flex items-center relative rounded-xl;
+    color: rgb(var(--nav-text));
+    padding: 0.5rem 0.695rem;
+    margin-bottom: 1.1rem;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .sidebar-nav-item.sidebar-nav-item-active {
+    @apply font-semibold;
+    color: rgb(var(--nav-text-active));
+    background-color: rgb(var(--nav-bg-active));
+  }
+
+  /* .sidebar-nav .sidebar-nav-item::before {
+    @apply absolute opacity-0 invisible;
+    content: "";
+    transition: 0.5s ease;
+    left: -1rem;
+    height: 100%;
+    border-left: 5px solid rgb(var(--nav-bg-active));
+    border-radius: 10px;
+  } */
+
+  /* .sidebar-nav .sidebar-nav-item:hover::before {
+    opacity: 1;
+    visibility: unset;
+  } */
+
+  .sidebar-nav .sidebar-nav-item:hover {
+    background-color: rgb(var(--nav-bg-hover));
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .sidebar-nav-item-icon {
+    font-size: 2rem;
+  }
+
+  .sidebar-nav-item-label {
+    margin-left: 1rem;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+  }
+
+  /* Bottom for Current user & Theme toggle*/
+  .app-sidebar .sidebar-bottom {
+    @apply py-4 font-medium;
+    color: rgb(var(--nav-text));
+    margin-top: auto;
+  }
+
+  .sidebar-bottom .sidebar-user {
+    @apply flex items-center relative cursor-pointer whitespace-nowrap rounded-xl;
+    color: rgb(var(--nav-text));
+    padding: 0.5rem 0.695rem;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .sidebar-bottom .sidebar-user:hover {
+    background-color: rgb(var(--nav-bg-hover));
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .sidebar-bottom .sidebar-user .sidebar-user-avatar {
+    font-size: 2rem;
+  }
+
+  .sidebar-bottom .sidebar-user .sidebar-user-info {
+    margin-left: 1rem;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+  }
+
+  .sidebar-bottom .theme-toggle {
+    @apply flex items-center relative cursor-pointer whitespace-nowrap rounded-xl;
+    color: rgb(var(--nav-text));
+    padding: 0.5rem 0.695rem;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .sidebar-bottom .theme-toggle:hover {
+    background-color: rgb(var(--nav-bg-hover));
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .sidebar-bottom .theme-toggle .toggle-icon-wrap {
+    font-size: 2rem;
+  }
+
+  .sidebar-bottom .theme-toggle .toggle-label {
+    margin-left: 1rem;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+  }
+
+  /* Sidebar Collapsed */
+
+  .app-sidebar.sidebar-collapsed {
+    width: var(--sidebar-width-collapsed);
+  }
+
+  .app-sidebar.sidebar-collapsed .logo,
+  .app-sidebar.sidebar-collapsed .sidebar-nav-item-label,
+  .app-sidebar.sidebar-collapsed .sidebar-bottom .sidebar-user .sidebar-user-info,
+  .app-sidebar.sidebar-collapsed .sidebar-bottom .theme-toggle .toggle-label {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .app-sidebar.sidebar-collapsed .sidebar-collapse-btn {
+    right: 0.595rem;
+  }
+}
