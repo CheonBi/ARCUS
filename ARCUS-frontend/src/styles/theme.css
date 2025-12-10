@@ -9,6 +9,19 @@
   --sidebar-bg: 15 23 42; /* slate-950 */
   --sidebar-border: 30 41 59; /* slate-800 */
 
+  --logo-bg: 14 165 233; /* sky-500 */
+  --logo-text: 255 255 255; /* white */
+
+  --logo-border: 14 165 233; /* sky-500 */
+  --logo-size: 2.25rem; /* 36px => w-9 h-9 */
+
+  --sidebar-width: 260px;
+  --sidebar-width-expanded: 260px;
+  --sidebar-width-collapsed: 72px;
+
+  --user-avatar-bg: 51 65 85; /* slate-700 */
+  --user-avatar-fg: 248 250 252; /* slate-50 */
+
   --header-bg: 15 23 42; /* slate-900 */
   --header-border: 30 41 59; /* slate-800 */
 
@@ -16,17 +29,6 @@
   --nav-text-active: 255 255 255; /* white */
   --nav-bg-hover: 51 65 85; /* slate-700 */
   --nav-bg-active: 30 41 59; /* slate-800 */
-
-  /* Theme Toggle*/
-  --toggle-track-bg: 203 213 225; /* slate-300 */
-  --toggle-track-bg-dark: 51 65 85; /* slate-700 */
-
-  --toggle-thumb: 255 255 255; /* white */
-
-  --toggle-icon-sun: 248 250 252; /* slate-50 */
-  --toggle-icon-moon: 30 41 59; /* slate-800 */
-
-  --toggle-icon-active: 255 255 255;
 }
 
 /* ============ Light Theme Overrides ============ */
@@ -37,6 +39,10 @@ body[data-theme="light"] {
   --main-bg: 255 255 255; /* white */
   --main-bg-reverse: 15 23 42; /* slate-900 */
 
+  --logo-bg: 14 165 233; /* sky-500 */
+  --logo-text: 255 255 255;
+  --logo-border: 14 165 233;
+
   --sidebar-bg: 241 245 249; /* slate-100 */
   --sidebar-border: 226 232 240; /* slate-200 */
 
@@ -45,13 +51,10 @@ body[data-theme="light"] {
 
   --nav-text: 71 85 105; /* slate-600 */
   --nav-text-active: 30 41 59; /* slate-800 */
-  --nav-bg-hover: 226 232 240; /* slate-200 */
-  --nav-bg-active: 203 213 225; /* slate-300 */
+  --nav-bg-hover: 206 232 210; /* slate-200 */
+  --nav-bg-active: 206 232 210; /* slate-300 */
 
-  --toggle-track: var(--toggle-track-bg);
-  --toggle-sun-color: var(--toggle-icon-sun);
-  --toggle-moon-color: var(--toggle-icon-moon);
-  --toggle-thumb: 255 255 255; /* white */
+  --toggle-icon-color: rgb(var(var(--nav-text)));
 }
 
 /* ============ Dark Theme Overrides ============ */
@@ -61,6 +64,10 @@ body[data-theme="dark"] {
 
   --main-bg: 15 23 42; /* slate-900 */
   --main-bg-reverse: 255 255 255; /* white */
+
+  --logo-bg: 56 189 248; /* sky-400 → slightly brighter for contrast */
+  --logo-text: 15 23 42; /* slate-900 → dark text for bright bg */
+  --logo-border: 56 189 248;
 
   --sidebar-bg: 15 23 42; /* slate-950 */
   --sidebar-border: 30 41 59; /* slate-800 */
@@ -73,8 +80,5 @@ body[data-theme="dark"] {
   --nav-bg-hover: 51 65 85; /* slate-700 */
   --nav-bg-active: 30 41 59; /* slate-800 */
 
-  --toggle-track: var(--toggle-track-bg-dark);
-  --toggle-sun-color: var(--toggle-icon-sun);
-  --toggle-moon-color: var(--toggle-icon-active);
-  --toggle-thumb: 203 213 225; /* slate-300 */
+  --toggle-icon-color: rgb(var(var(--nav-text)));
 }

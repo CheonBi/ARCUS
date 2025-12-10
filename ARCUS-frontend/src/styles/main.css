@@ -8,10 +8,6 @@
     "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-:root {
-  --sidebar-width: 260px;
-}
-
 body {
   font-family: var(--font-pretendard);
 }

@@ -1,68 +1,10 @@
+@import "./sidebar.css";
+
 @layer components {
   .app-layout {
     @apply flex min-h-screen;
     background-color: rgb(var(--layout-bg));
     color: rgb(var(--layout-fg));
-  }
-
-  .app-sidebar {
-    @apply flex flex-col border-r px-4 py-6;
-    background-color: rgb(var(--sidebar-bg));
-    border-color: rgb(var(--sidebar-border));
-    width: var(--sidebar-width);
-  }
-
-  .app-sidebar .logo {
-    @apply mb-4 text-xl font-semibold tracking-tight;
-  }
-
-  .app-sidebar .theme-toggle {
-    @apply mt-auto border-t  pt-4
-    inline-flex items-center justify-between flex-col gap-1;
-    border-color: rgb(var(--sidebar-border));
-  }
-
-  .app-sidebar .theme-toggle .theme-toggle-inner {
-    @apply relative flex h-8 w-36 items-center rounded-full;
-    background-color: rgb(var(--toggle-track));
-  }
-
-  .app-sidebar .theme-toggle button {
-    @apply relative flex h-full w-full items-center justify-between px-1;
-  }
-
-  .app-sidebar .theme-toggle button span {
-    @apply flex w-8 items-center justify-center;
-    position: relative;
-    z-index: 10;
-  }
-
-  .app-sidebar .theme-toggle .theme-toggle-thumb {
-    @apply absolute h-6 w-6 rounded-full shadow transition-transform duration-300;
-    background-color: rgb(var(--toggle-thumb));
-    inset: 0 0 0 0;
-    top: 4px;
-    left: 8px;
-  }
-
-  .app-sidebar nav {
-    @apply flex flex-col gap-3;
-  }
-
-  .app-sidebar nav a {
-    @apply flex items-center gap-4 px-3 py-2 rounded-lg text-sm font-medium transition-colors;
-    color: rgb(var(--nav-text));
-  }
-
-  .app-sidebar nav a:hover {
-    background-color: rgb(var(--nav-bg-hover));
-    color: rgb(var(--nav-hover-text));
-  }
-
-  /* NavLink active */
-  .app-sidebar nav a.active {
-    background-color: rgb(var(--nav-bg-active));
-    color: rgb(var(--nav-active-text));
   }
 
   .app-main {
