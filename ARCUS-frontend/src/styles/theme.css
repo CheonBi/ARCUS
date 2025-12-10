@@ -54,7 +54,7 @@ body[data-theme="light"] {
   --nav-bg-hover: 206 232 210; /* slate-200 */
   --nav-bg-active: 206 232 210; /* slate-300 */
 
-  --toggle-icon-color: rgb(var(var(--nav-text)));
+  --toggle-icon-color: rgb(var(--nav-text));
 }
 
 /* ============ Dark Theme Overrides ============ */
@@ -80,5 +80,5 @@ body[data-theme="dark"] {
   --nav-bg-hover: 51 65 85; /* slate-700 */
   --nav-bg-active: 30 41 59; /* slate-800 */
 
-  --toggle-icon-color: rgb(var(var(--nav-text)));
+  --toggle-icon-color: rgb(var(--nav-text));
 }
