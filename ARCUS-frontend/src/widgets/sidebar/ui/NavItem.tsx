@@ -1,18 +1,19 @@
 import { NavLink } from "react-router";
 import type { ReactNode } from "react";
 
-type SidebarNavItemProps = {
+type NavItemProps = {
   to: string;
   label: string;
   icon?: ReactNode;
   className?: string;
+  end?: boolean;
 };
 
-export const SidebarNavItem = ({ to, label, icon, className }: SidebarNavItemProps) => {
+export const NavItem = ({ to, label, icon, className, end = false }: NavItemProps) => {
   return (
     <NavLink
       to={to}
-      end
+      end={end}
       className={({ isActive }) =>
         ["sidebar-nav-item", isActive ? "sidebar-nav-item-active" : "", className ?? ""].join(" ")
       }
