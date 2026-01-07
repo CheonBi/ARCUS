@@ -1,4 +1,4 @@
-import { ROUTES } from "@app/config/routes";
+import { ROUTES } from "@app/router/routes";
 import { NavItem } from "@widgets/sidebar/ui/NavItem";
 import { ThemeToggle } from "@features/theme";
 import { Home, Ticket, BarChart3, Activity, PanelRightClose, PanelRightOpen } from "lucide-react";
@@ -28,10 +28,10 @@ export const Sidebar = () => {
       </div>
 
       <nav className="sidebar-middle sidebar-nav">
-        <NavItem to={ROUTES.ROOT} label="Dashboard" icon={<Home size={18} />} />
-        <NavItem to={ROUTES.TICKETS} label="Tickets" icon={<Ticket size={18} />} />
-        <NavItem to={ROUTES.VOC} label="Analytics" icon={<BarChart3 size={18} />} />
-        <NavItem to={ROUTES.MONITORING} label="Monitoring" icon={<Activity size={18} />} />
+        <NavItem to={ROUTES.DASHBOARD} label="Dashboard" icon={<Home size={18} />} />
+        <NavItem to={ROUTES.TASKS} label="Tickets" icon={<Ticket size={18} />} />
+        <NavItem to={ROUTES.REPORTS} label="Analytics" icon={<BarChart3 size={18} />} />
+        <NavItem to={ROUTES.NOTIFICATIONS} label="Monitoring" icon={<Activity size={18} />} />
       </nav>
 
       <div className="sidebar-bottom">
