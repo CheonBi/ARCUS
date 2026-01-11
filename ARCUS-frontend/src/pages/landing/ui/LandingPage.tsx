@@ -1,3 +1,9 @@
+import { HeadSection } from "@widgets/landing/HeadSection";
+
 export const LandingPage = () => {
-  return <div>LandingPage</div>;
+  return (
+    <>
+      <HeadSection />
+    </>
+  );
 };

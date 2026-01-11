@@ -1,6 +1,6 @@
 import { useSessionStore } from "@entities/session";
 import { userQueryKeys } from "@entities/user";
-import { authApi } from "@features/auth/api/authApi";
+import { authApi } from "@features/auth/login/api/authApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useLogin = () => {
