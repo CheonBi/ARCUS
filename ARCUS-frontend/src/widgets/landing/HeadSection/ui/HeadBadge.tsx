@@ -4,7 +4,7 @@ export const HeadBadge = () => {
   if (!HEAD_CONSTANT.badge) return null;
 
   return (
-    <div className="mb-5 inline-flex items-center rounded-full border px-3 py-1 text-sm">
+    <div className="mb-5 inline-flex items-center w-fit rounded-full border px-3 py-1 text-sm">
       {HEAD_CONSTANT.badge}
     </div>
   );
