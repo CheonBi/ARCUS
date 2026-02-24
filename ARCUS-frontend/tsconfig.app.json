@@ -28,15 +28,12 @@
 
     "baseUrl": ".",
     "paths": {
-      "@api/*": ["src/api/*"],
       "@app/*": ["src/app/*"],
-      "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@widgets/*": ["src/widgets/*"],
       "@features/*": ["src/features/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@styles/*": ["src/styles/*"],
-      "@_types/*": ["src/@types/*"],
-      "@utils/*": ["src/utils/*"]
+      "@entities/*": ["src/entities/*"],
+      "@shared/*": ["src/shared/*"]
     }
   },
   "include": ["src", "index.tsx"]

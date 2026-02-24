@@ -11,7 +11,7 @@ import { RouterProvider } from "react-router";
 import { router } from "@app/router";
 
 import { QueryProvider } from "@app/providers/QueryProvider";
-import { ThemeProvider } from "@app/providers/ThemeProvider";
+import { ThemeProvider } from "@features/theme";
 
 export const App = () => {
   return (
