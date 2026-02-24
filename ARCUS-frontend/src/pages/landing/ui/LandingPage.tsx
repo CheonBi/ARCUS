@@ -1,9 +1,14 @@
+import { PageContainer } from "@shared/layout/PageContainer";
 import { HeadSection } from "@widgets/landing/HeadSection";
+import { ProblemSection } from "@widgets/landing/ProblemSection";
 
 export const LandingPage = () => {
   return (
-    <div className="mx-auto max-w-6xl">
-      <HeadSection />
-    </div>
+    <>
+      <PageContainer>
+        <HeadSection />
+        <ProblemSection />
+      </PageContainer>
+    </>
   );
 };

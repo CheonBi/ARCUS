@@ -2,7 +2,7 @@ import { cva } from "class-variance-authority";
 
 export const pageContainerVariants = cva(
   // 기본(Base) 스타일
-  "mx-auto w-full max-w-6xl px-6",
+  "mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12",
   {
     variants: {
       size: {
