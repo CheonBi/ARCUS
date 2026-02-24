@@ -6,7 +6,7 @@ on:
   # Works when pushed to deploy branch
   push:
     branches:
-      - deploy
+      - main
 
 jobs:
   deploy:

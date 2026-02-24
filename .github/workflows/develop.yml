@@ -6,10 +6,10 @@ on:
   # Works when push or pull request to develop branch
   push:
     branches:
-      - develop
+      - dev
   pull_request:
     branches:
-      - develop
+      - dev
 
 defaults:
   run:
