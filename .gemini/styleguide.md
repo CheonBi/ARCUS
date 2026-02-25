@@ -1,5 +1,5 @@
 1. 공통 원칙 (Common Principles)
-   - 코드와 변수명은 English를 사용하되, 주석(Comments)과 커밋 메시지, PR 설명은 한국어 사용을 원칙으로 합니다.
+   - 코드와 변수명은 English를 사용하되, 주석(Comments)과 커밋 메시지, PR 설명, 코드리뷰는 한국어 사용을 원칙으로 합니다.
 
 2. 네이밍 규칙:
    - 클래스/인터페이스: PascalCase
