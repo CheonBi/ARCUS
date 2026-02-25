@@ -1,0 +1,57 @@
+# ARCUS Deploy
+
+name: ARCUS CD
+
+on:
+  # Works when pushed to deploy branch
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add Remote Host Key to Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.GCP_IP }} >> ~/.ssh/known_hosts
+
+      # Deploy to main server via SSH
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCP_IP}}
+          username: ${{secrets.GCP_USER}}
+          key: ${{ secrets.GCP_PRIVATE_KEY}}
+          port: 22
+
+          script: |
+            REMOTE_DIR="/home/${{secrets.GCP_USER}}/ARCUS"
+            REPO_URL="git@ARCUS-git:CheonBi/ARCUS.git"
+            TARGET_BRANCH="deploy"
+
+            echo "Checking deployment directory on server..."
+
+            if [ ! -d "${REMOTE_DIR}" ]; then
+              echo "Directory not found. Cloning repository ${REPO_URL}..."
+              cd /home/${{secrets.GCP_USER}}
+              git clone ${REPO_URL}
+              cd ${REMOTE_DIR}
+              git checkout ${TARGET_BRANCH}
+            else
+              echo "Directory exists. Moving and pulling latest code on branch ${TARGET_BRANCH}..."
+              cd ${REMOTE_DIR}
+              git pull origin ${TARGET_BRANCH}
+            fi
+
+            echo "Starting local Docker Compose build and deployment..."
+
+            docker compose down
+
+            docker compose build
+
+            docker compose up -d
+
+            echo "Deployment completed successfully on Ubuntu server!"
