@@ -12,6 +12,8 @@ export const AuthGuard = () => {
   const hydrate = useSessionStore((state) => state.hydrate);
   const clear = useSessionStore((state) => state.clear);
 
+  const me = useCurrentUserQuery();
+
   // 최초 1회 토큰복원
   useEffect(() => {
     if (!isHydrate) {
@@ -24,13 +26,11 @@ export const AuthGuard = () => {
   if (!token) return <Navigate to={ROUTES.LOGIN} replace />;
 
   //토큰 있으면 유효성 검사
-  const me = useCurrentUserQuery();
-
   if (me.isLoading) return null;
   if (me.isError) {
     // 토큰이 만료 or 무효일 => 세션 정리 후 로그인으로
     clear();
-    <Navigate to={ROUTES.LOGIN} replace state={{ from: location }} />;
+    return <Navigate to={ROUTES.LOGIN} replace state={{ from: location }} />;
   }
 
   return <Outlet />;
