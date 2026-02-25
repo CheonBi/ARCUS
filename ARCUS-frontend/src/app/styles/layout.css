@@ -1,0 +1,24 @@
+@import "./sidebar.css";
+
+@layer components {
+  .app-layout {
+    @apply flex min-h-screen;
+    background-color: rgb(var(--layout-bg));
+    color: rgb(var(--layout-fg));
+  }
+
+  .app-main {
+    @apply flex flex-col flex-1 min-w-0;
+    background-color: rgb(var(--main-bg));
+  }
+
+  .app-header {
+    @apply flex items-center justify-between h-14 px-6 border-b backdrop-blur;
+    background-color: rgb(var(--header-bg) / 0.8);
+    border-color: rgb(var(--header-border));
+  }
+
+  .app-content {
+    @apply flex-1 min-h-0 overflow-y-auto px-6 py-6;
+  }
+}

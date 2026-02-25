@@ -1,0 +1,32 @@
+name: ARCUS
+
+networks:
+  arcus-network:
+    driver: bridge
+
+services:
+  frontend:
+    container_name: arcus_frontend
+    restart: always
+    build:
+      context: ./ARCUS-frontend
+      dockerfile: Dockerfile
+    networks:
+      - arcus-network
+    environment:
+      TZ: Asia/Seoul
+
+  nginx:
+    image: nginx:latest
+    networks:
+      - arcus-network
+    environment:
+      TZ: Asia/Seoul
+    restart: always
+    volumes:
+      - ./conf/:/etc/nginx/conf.d
+    container_name: arcus_nginx_proxy
+    ports:
+      - 80:80
+    depends_on:
+      - frontend
