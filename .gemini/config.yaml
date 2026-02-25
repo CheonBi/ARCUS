@@ -1,0 +1,49 @@
+have_fun: false
+
+memoryconfig:
+  disabled: false
+
+code_review:
+  disable: false
+  comment_severity_threshold: MEDIUM
+
+  max_review_comments: 30
+
+  pull_request_opened:
+    help: false
+    summary: true
+    code_review: true
+    include_drafts: false
+
+ignore_patterns:
+  - ".vscode/**"
+  - ".idea/**"
+  - ".DS_Store"
+  - "*.suo"
+  - "*.ntvs*"
+  - "*.njsproj"
+  - "*.sln"
+
+  - "target/**"
+  - "build/**"
+  - "out/**"
+  - ".gradle/**"
+  - ".mvn/**"
+  - "bin/**"
+  - "**/*.class"
+
+  - "node_modules/**"
+  - "dist/**"
+  - "storybook-static/**"
+
+  - "docs/**"
+  - "**.md"
+  - "ARCUS-frontend/public/**"
+  - "ARCUS-frontend/src/shared/assets/**"
+  - "**/*.svg"
+  - "**/*.png"
+  - "**/*.jpg"
+  - "**/*.jpeg"
+  - "**/*.gif"
+  - "**/*.ico"
+  - "**/*.pdf"
