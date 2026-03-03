@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import { MainLayout } from "@app/layouts/AppShell";
-import { ROUTES } from "@app/router/routes";
+import { ROUTES } from "@shared/consts/routes";
 
 //Pages
 import { LandingPage } from "@pages/landing/ui/LandingPage";
@@ -12,6 +12,7 @@ import { NotFoundPage } from "@pages/errors/ui/NotFoundPage";
 import { ForbiddenPage } from "@pages/errors/ui/ForbiddenPage";
 import { guarded } from "@app/router/guards/helpers";
 import { AuthGuard } from "@app/router/guards/AuthGuard";
+import { MainBoardPage } from "@pages/mainboard/ui/MainBoardPage";
 
 /**
  * 기본 구조
@@ -23,6 +24,18 @@ export const router = createBrowserRouter([
   { path: ROUTES.ENTRY, element: <LandingPage /> },
   { path: ROUTES.LOGIN, element: <LoginPage /> },
   { path: ROUTES.SIGNUP, element: <SignupPage /> },
+
+  //Dev routes
+  {
+    path: ROUTES.APP_DEV,
+    element: <MainLayout />,
+    children: [
+      { path: ROUTES.DEV_MAINBOARD, element: <MainBoardPage /> },
+      { path: ROUTES.DEV_DAILY, element: <div>Daily</div> },
+      { path: ROUTES.DEV_EVENT, element: <div>Event</div> },
+      { path: ROUTES.DEV_SETTINGS, element: <div>Settings</div> },
+    ],
+  },
 
   // Protected Routes
   // Org onboarding (login required, org not required)

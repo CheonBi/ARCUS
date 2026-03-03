@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from "react-router";
-import { ROUTES } from "@app/router/routes";
+import { ROUTES } from "@shared/consts/routes";
 import { useSessionStore } from "@entities/session";
 import { useEffect } from "react";
 import { useCurrentUserQuery } from "@entities/user";

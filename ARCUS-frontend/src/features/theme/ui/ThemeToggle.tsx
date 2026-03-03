@@ -16,7 +16,7 @@ export const ThemeToggle = () => {
   return (
     <div className="theme-toggle" onClick={toggleTheme}>
       <span className="toggle-icon-wrap">{isDark ? <DarkIcon /> : <LightIcon />}</span>
-      <div className="toggle-label">{theme === "dark" ? "Dark Mode" : "Light Mode"}</div>
+      {/* <div className="toggle-label">{theme === "dark" ? "Dark Mode" : "Light Mode"}</div> */}
     </div>
   );
 };
