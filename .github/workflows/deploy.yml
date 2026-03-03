@@ -30,7 +30,7 @@ jobs:
           script: |
             REMOTE_DIR="/home/${{secrets.GCP_USER}}/ARCUS"
             REPO_URL="git@ARCUS-git:CheonBi/ARCUS.git"
-            TARGET_BRANCH="deploy"
+            TARGET_BRANCH="main"
 
             echo "Checking deployment directory on server..."
 
