@@ -11,6 +11,13 @@ export const ROUTES = {
   SIGNUP: "/signup",
   ORG_ONBOARDING: "/org/onboarding",
 
+  //Dev routes
+  APP_DEV: "/dev",
+  DEV_MAINBOARD: "mainboard",
+  DEV_DAILY: "daily",
+  DEV_EVENT: "event",
+  DEV_SETTINGS: "settings",
+
   // App (org scoped)
   APP: "/app",
   APP_ROOT: "/app/:orgId",
@@ -48,6 +55,13 @@ export const appRoutes = {
   settings: (orgId: string) => `/app/${orgId}/settings`,
 } as const;
 
+export const devRoutes = {
+  mainboard: () => `${ROUTES.APP_DEV}/${ROUTES.DEV_MAINBOARD}`,
+  daily: () => `${ROUTES.APP_DEV}/${ROUTES.DEV_DAILY}`,
+  event: () => `${ROUTES.APP_DEV}/${ROUTES.DEV_EVENT}`,
+  settings: () => `${ROUTES.APP_DEV}/${ROUTES.DEV_SETTINGS}`,
+} as const;
+
 /**
  * Optional: export a single namespace-like object
  * (Some teams prefer importing `routes` only.)
@@ -56,6 +70,7 @@ export const routes = {
   patterns: ROUTES,
   entry: entryRoutes,
   app: appRoutes,
+  dev: devRoutes,
 } as const;
 
 /**

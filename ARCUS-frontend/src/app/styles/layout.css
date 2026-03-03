@@ -1,8 +1,6 @@
-@import "./sidebar.css";
-
 @layer components {
   .app-layout {
-    @apply flex min-h-screen;
+    @apply flex flex-col min-h-screen;
     background-color: rgb(var(--layout-bg));
     color: rgb(var(--layout-fg));
   }
@@ -13,12 +11,13 @@
   }
 
   .app-header {
-    @apply flex items-center justify-between h-14 px-6 border-b backdrop-blur;
+    @apply flex items-center h-14 border-b backdrop-blur shrink-0;
     background-color: rgb(var(--header-bg) / 0.8);
     border-color: rgb(var(--header-border));
+    width: 100%;
   }
 
   .app-content {
-    @apply flex-1 min-h-0 overflow-y-auto px-6 py-6;
+    @apply flex-1 min-h-0 overflow-y-auto py-6 flex flex-col;
   }
 }
