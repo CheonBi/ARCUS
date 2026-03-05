@@ -8,7 +8,7 @@ export const MainLayout = () => {
       <Header />
       <main className="app-main">
         <section className="app-content">
-          <PageContainer className="flex flex-col flex-1 h-full w-full">
+          <PageContainer className="flex flex-col flex-1" size="full">
             <Outlet />
           </PageContainer>
         </section>
