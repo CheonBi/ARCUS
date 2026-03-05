@@ -20,4 +20,16 @@
   .app-content {
     @apply flex-1 min-h-0 overflow-y-auto py-6 flex flex-col;
   }
+
+  /* 비율 조정 가능한 그리드 Row */
+  .grid-row {
+    --grid-ratio: 3fr 1fr; /* 기본 비율 fallback */
+    grid-template-columns: 1fr; /* 모바일: 단일 컬럼 */
+  }
+
+  @media (min-width: 1024px) {
+    .grid-row {
+      grid-template-columns: var(--grid-ratio); /* lg+: ratio prop 적용 */
+    }
+  }
 }
