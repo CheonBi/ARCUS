@@ -1,0 +1,10 @@
+/* Line series fade transition */
+.chart-line {
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.chart-line--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
