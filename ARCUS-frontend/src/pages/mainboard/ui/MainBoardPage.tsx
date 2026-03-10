@@ -12,7 +12,7 @@ export const MainBoardPage = () => {
     <div className="flex flex-1 flex-col gap-4 sm:gap-6 p-4 sm:p-6 w-full ">
       {/* ── Row 1 ── */}
       <GridRow ratio={[7, 3]} className="flex-1">
-        <MainChartWidget title="종합차트" badge="Live" />
+        <MainChartWidget title="종합차트" badge="Live" variant="elevated" />
         <SubChartWidget title="차트 A" badge="▲ 2.4%" chartType="area" />
       </GridRow>
 
