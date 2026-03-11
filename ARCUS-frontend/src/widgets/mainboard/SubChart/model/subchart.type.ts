@@ -7,4 +7,5 @@ export interface subChartProps
   title: string;
   badge?: string;
   icon?: ReactNode;
+  chartType?: "area" | "bar" | "line";
 }

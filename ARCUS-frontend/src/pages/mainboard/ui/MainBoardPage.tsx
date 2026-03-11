@@ -1,5 +1,5 @@
 import { MainChartWidget } from "@widgets/mainboard/MainChart";
-import { SubChart1Widget, SubChart2Widget } from "@widgets/mainboard/SubChart";
+import { SubChartWidget } from "@widgets/mainboard/SubChart";
 import { DataCardGridWidget } from "@widgets/mainboard/DataCard";
 import { GridRow } from "@shared/layout/GridRow";
 
@@ -12,14 +12,14 @@ export const MainBoardPage = () => {
     <div className="flex flex-1 flex-col gap-4 sm:gap-6 p-4 sm:p-6 w-full ">
       {/* ── Row 1 ── */}
       <GridRow ratio={[7, 3]} className="flex-1">
-        <MainChartWidget title="종합차트" />
-        <SubChart1Widget title="차트 A" />
+        <MainChartWidget title="종합차트" badge="Live" variant="elevated" />
+        <SubChartWidget title="차트 A" badge="▲ 2.4%" chartType="area" />
       </GridRow>
 
       {/* ── Row 2 ── */}
       <GridRow ratio={[7, 3]} className="flex-1">
         <DataCardGridWidget />
-        <SubChart2Widget title="차트 B" />
+        <SubChartWidget title="차트 B" badge="▼ 1.2%" chartType="bar" />
       </GridRow>
     </div>
   );

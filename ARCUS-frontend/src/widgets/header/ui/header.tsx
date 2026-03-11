@@ -14,7 +14,7 @@ const HEADER_LINKS = [
 export const Header = () => {
   return (
     <header className="app-header">
-      <PageContainer className="flex items-center justify-between w-full h-full gap-8">
+      <PageContainer className="flex items-center justify-between w-full h-full gap-8" size="full">
         <div className="flex items-center gap-8">
           <div className="header-logo">
             <h1 className="text-xl font-bold">ARCUS</h1>

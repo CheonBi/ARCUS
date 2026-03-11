@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const mainChartVariants = cva(
-  "rounded-2xl border p-4 sm:p-6 backdrop-blur transition-shadow duration-200 shadow-sm hover:shadow-md min-h-[220px] sm:min-h-[300px] flex flex-col",
+  "rounded-2xl border p-4 sm:pt-6 sm:px-6 sm:pb-2 backdrop-blur transition-shadow duration-200 shadow-sm hover:shadow-md min-h-[220px] sm:min-h-[300px] flex flex-col",
   {
     variants: {
       variant: {
