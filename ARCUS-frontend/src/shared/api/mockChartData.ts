@@ -3,14 +3,15 @@
  * Designed to be easily replaced by real SSE / RESTful APIs in the future.
  */
 
-// 1. 종합 차트 (Main Chart) - Real-Time 5 Series (2 Mega, 3 Byte)
-export interface MainChartDataPoint {
+// 1. 종합 차트 (Main Chart) - Real-Time 6 Series (2 Mega, 4 Byte)
+export interface ChartDataPoint {
   time: string; // HH:mm format
   mega1: number | null; // 메가급 데이터 1 (MB)
   mega2: number | null; // 메가급 데이터 2 (MB)
   byte1: number | null; // 바이트급 데이터 1 (Bytes)
   byte2: number | null; // 바이트급 데이터 2 (Bytes)
   byte3: number | null; // 바이트급 데이터 3 (Bytes)
+  byte4: number | null; // 바이트급 데이터 4 (Bytes)
 }
 
 // Global baseline variables for random walk
@@ -19,6 +20,7 @@ let currentMega2 = 15;
 let currentByte1 = 300000;
 let currentByte2 = 150000;
 let currentByte3 = 500000;
+let currentByte4 = 250000;
 
 // Helper function to generate a smooth random walk value
 const getSmoothValue = (current: number, maxChange: number, min: number, max: number) => {
@@ -36,6 +38,7 @@ export const generateNextMainChartValues = () => {
   currentByte1 = getSmoothValue(currentByte1, 30000, 100000, 600000);
   currentByte2 = getSmoothValue(currentByte2, 15000, 50000, 350000);
   currentByte3 = getSmoothValue(currentByte3, 50000, 200000, 1000000);
+  currentByte4 = getSmoothValue(currentByte4, 25000, 50000, 500000);
 
   return {
     mega1: currentMega1,
@@ -43,12 +46,13 @@ export const generateNextMainChartValues = () => {
     byte1: currentByte1,
     byte2: currentByte2,
     byte3: currentByte3,
+    byte4: currentByte4,
   };
 };
 
 // Generate initial mock data for the entire 24h (00:00 - 23:55)
-export const generateInitialMainChartData = (): MainChartDataPoint[] => {
-  const data: MainChartDataPoint[] = [];
+export const generateInitialChartData = (): ChartDataPoint[] => {
+  const data: ChartDataPoint[] = [];
   const now = new Date();
   const currentHour = now.getHours();
   // Using minutes rounded down to nearest 5
@@ -60,6 +64,7 @@ export const generateInitialMainChartData = (): MainChartDataPoint[] => {
   currentByte1 = 300000;
   currentByte2 = 150000;
   currentByte3 = 500000;
+  currentByte4 = 250000;
 
   // Create data points every 5 minutes for 24 hours
   for (let h = 0; h < 24; h++) {
@@ -75,6 +80,7 @@ export const generateInitialMainChartData = (): MainChartDataPoint[] => {
               byte1: null,
               byte2: null,
               byte3: null,
+              byte4: null,
             }
           : generateNextMainChartValues()),
       });

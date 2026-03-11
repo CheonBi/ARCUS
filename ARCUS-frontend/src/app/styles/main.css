@@ -11,3 +11,12 @@
 body {
   font-family: var(--font-pretendard);
 }
+
+/* Recharts 글로벌 스타일 - 차트 클릭 시 브라우저 기본 포커스 외곽선(검은 테두리) 방지 */
+.recharts-wrapper,
+.recharts-surface,
+.recharts-sector,
+.recharts-layer {
+  outline: none !important;
+}
+

@@ -2,9 +2,8 @@ import { cn } from "@shared/lib/cn";
 import "./MainChartWidget.css";
 import { mainChartVariants } from "../model/mainChart.styles";
 import type { mainChartProps } from "../model/mainChart.types";
-import { useMainChartData } from "@widgets/mainboard/MainChart/lib/useMainChartData";
 import { useHiddenSeries } from "@widgets/mainboard/MainChart/lib/useHiddenSeries";
-import { LINE_SERIES } from "../model/mainChart.constants";
+import { LINE_SERIES } from "@shared/lib/chart.constants";
 import { formatMega, formatByte } from "../lib/mainChart.formatters";
 import { MainChartHeader } from "./MainChartHeader";
 import { MainChartTooltip } from "./MainChartTooltip";
@@ -21,13 +20,13 @@ import {
 
 export const MainChartWidget = ({
   className,
+  data,
   title = "종합 차트",
   badge = "Live",
   icon,
   variant,
   ...props
 }: mainChartProps) => {
-  const data = useMainChartData();
   const { hiddenSeries, handleLegendClick } = useHiddenSeries();
 
   return (
@@ -43,49 +42,43 @@ export const MainChartWidget = ({
           initialDimension={{ width: 1, height: 1 }}
         >
           <LineChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.3)" yAxisId="left" />
+            <CartesianGrid stroke="rgb(var(--layout-fg) / 0.3)" yAxisId="left" />
 
             <XAxis
               dataKey="time"
-              stroke="rgba(255,255,255,0.8)"
+              stroke="rgb(var(--layout-fg) / 0.8)"
               fontSize={12}
-              tickLine={true}
-              axisLine={true}
+              tickLine={false}
               tickMargin={12}
               interval={23}
+              domain={[0, 24]}
             />
 
             {/* Left Y-Axis (Mega) */}
             <YAxis
               yAxisId="left"
-              stroke="rgba(255,255,255,0.8)"
+              stroke="rgb(var(--layout-fg) / 0.8)"
               fontSize={12}
-              tickLine={true}
+              tickLine={false}
               tickFormatter={formatMega}
               width={65}
               tickMargin={10}
               tickCount={6}
-              domain={[
-                (dataMin: number) => (dataMin ? Math.ceil(dataMin * 0.5) : "auto"),
-                (dataMax: number) => (dataMax ? Math.ceil(dataMax * 1.5) : "auto"),
-              ]}
+              domain={[0, "auto"]}
             />
 
             {/* Right Y-Axis (Byte) */}
             <YAxis
               yAxisId="right"
               orientation="right"
-              stroke="rgba(255,255,255,0.8)"
+              stroke="rgb(var(--layout-fg) / 0.8)"
               fontSize={12}
-              tickLine={true}
+              tickLine={false}
               tickFormatter={formatByte}
               width={75}
               tickMargin={10}
               tickCount={6}
-              domain={[
-                (dataMin: number) => (dataMin ? Math.ceil(dataMin * 0.5) : "auto"),
-                (dataMax: number) => (dataMax ? Math.ceil(dataMax * 1.5) : "auto"),
-              ]}
+              domain={[0, "auto"]}
             />
 
             <Tooltip
@@ -104,7 +97,9 @@ export const MainChartWidget = ({
                 return (
                   <span
                     style={{
-                      color: isHidden ? "rgba(255,255,255,0.25)" : "rgba(255,255,255,0.9)",
+                      color: isHidden
+                        ? "rgb(var(--layout-fg) / 0.25)"
+                        : "rgb(var(--layout-fg) / 0.9)",
                       textDecoration: isHidden ? "line-through" : "none",
                       transition: "color 0.4s ease",
                       userSelect: "none",

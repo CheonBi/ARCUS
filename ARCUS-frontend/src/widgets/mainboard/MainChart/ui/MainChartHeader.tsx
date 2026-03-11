@@ -1,4 +1,3 @@
-import { cn } from "@shared/lib/cn";
 import type { ReactNode } from "react";
 
 interface MainChartHeaderProps {
@@ -16,10 +15,8 @@ export const MainChartHeader = ({ title, badge, icon }: MainChartHeaderProps) =>
       <div className="flex items-center">
         {icon ? (
           <div
-            className={cn(
-              "mr-2 inline-flex h-8 w-8 items-center justify-center rounded-lg",
-              "bg-white/10",
-            )}
+            className="mr-2 inline-flex h-8 w-8 items-center justify-center rounded-lg"
+            style={{ backgroundColor: "rgb(var(--layout-fg) / 0.1)" }}
           >
             {icon}
           </div>

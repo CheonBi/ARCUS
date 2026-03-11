@@ -22,8 +22,8 @@ export const MainChartTooltip = ({
   if (visiblePayload.length === 0) return null;
 
   return (
-    <div className="p-2 bg-[rgb(var(--header-bg))] border border-white/10 rounded-lg shadow-xl min-w-[130px]">
-      <p className="mb-1.5 text-xs font-semibold text-[rgb(var(--layout-fg))]">{label}</p>
+    <div className="p-2 bg-[rgb(var(--header-bg))] border border-[rgb(var(--header-border))] rounded-lg shadow-xl min-w-[130px] max-w-[200px] m-1">
+      <p className="mb-1 text-xs font-semibold text-[rgb(var(--layout-fg))]">{label}</p>
       <div className="flex flex-col gap-1">
         {visiblePayload.map((entry, index) => {
           const isMega = String(entry.dataKey).startsWith("mega");

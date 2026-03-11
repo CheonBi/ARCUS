@@ -1,9 +1,11 @@
+import type { ChartDataPoint } from "@shared/api/mockChartData";
 import type { mainChartVariants } from "./mainChart.styles";
 import type { VariantProps } from "class-variance-authority";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export interface mainChartProps
   extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof mainChartVariants> {
+  data: ChartDataPoint[];
   title: string;
   badge?: string;
   icon?: ReactNode;
