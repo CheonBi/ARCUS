@@ -3,16 +3,7 @@
  * Designed to be easily replaced by real SSE / RESTful APIs in the future.
  */
 
-// 1. 종합 차트 (Main Chart) - Real-Time 6 Series (2 Mega, 4 Byte)
-export interface ChartDataPoint {
-  time: string; // HH:mm format
-  mega1: number | null; // 메가급 데이터 1 (MB)
-  mega2: number | null; // 메가급 데이터 2 (MB)
-  byte1: number | null; // 바이트급 데이터 1 (Bytes)
-  byte2: number | null; // 바이트급 데이터 2 (Bytes)
-  byte3: number | null; // 바이트급 데이터 3 (Bytes)
-  byte4: number | null; // 바이트급 데이터 4 (Bytes)
-}
+import type { CategoryBasePoint, TimeBasePoint } from "@shared/types/chartValue";
 
 // Global baseline variables for random walk
 let currentMega1 = 30;
@@ -32,7 +23,7 @@ const getSmoothValue = (current: number, maxChange: number, min: number, max: nu
 };
 
 // Next data point generator (returns just the values without time, for real-time updating)
-export const generateNextMainChartValues = () => {
+export const generateNextValues = () => {
   currentMega1 = getSmoothValue(currentMega1, 4, 10, 60);
   currentMega2 = getSmoothValue(currentMega2, 2, 5, 35);
   currentByte1 = getSmoothValue(currentByte1, 30000, 100000, 600000);
@@ -50,13 +41,32 @@ export const generateNextMainChartValues = () => {
   };
 };
 
+const FALLBACK_VALUES = {
+  mega1: null,
+  mega2: null,
+  byte1: null,
+  byte2: null,
+  byte3: null,
+  byte4: null,
+};
+
+const FALLBACK_CATEGORIES: CategoryBasePoint[] = Object.keys(FALLBACK_VALUES).map((key) => ({
+  category: key,
+  value: null,
+}));
+
 // Generate initial mock data for the entire 24h (00:00 - 23:55)
-export const generateInitialChartData = (): ChartDataPoint[] => {
-  const data: ChartDataPoint[] = [];
+export const generateInitial = (): {
+  timebase: TimeBasePoint[];
+  categorybase: CategoryBasePoint[];
+} => {
+  //Using multiple return values
+  const timebase: TimeBasePoint[] = [];
+  let latestValues: ReturnType<typeof generateNextValues> | null = null;
+
   const now = new Date();
   const currentHour = now.getHours();
-  // Using minutes rounded down to nearest 5
-  const currentMinute = Math.floor(now.getMinutes() / 5) * 5;
+  const currentMinute = Math.floor(now.getMinutes() / 5) * 5; // Using minutes rounded down to nearest 5
 
   // Reset baselines for new initial generation
   currentMega1 = 30;
@@ -70,51 +80,27 @@ export const generateInitialChartData = (): ChartDataPoint[] => {
   for (let h = 0; h < 24; h++) {
     for (let m = 0; m < 60; m += 5) {
       const isFuture = h > currentHour || (h === currentHour && m > currentMinute);
+      const timeStr = `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
 
-      data.push({
-        time: `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`,
-        ...(isFuture
-          ? {
-              mega1: null,
-              mega2: null,
-              byte1: null,
-              byte2: null,
-              byte3: null,
-              byte4: null,
-            }
-          : generateNextMainChartValues()),
-      });
+      const newValue = generateNextValues();
+
+      if (isFuture) {
+        timebase.push({ time: timeStr, ...FALLBACK_VALUES });
+      } else {
+        timebase.push({ time: timeStr, ...newValue });
+        latestValues = newValue;
+      }
     }
   }
-  return data;
+
+  const categorybase: CategoryBasePoint[] = latestValues
+    ? Object.entries(latestValues)
+        .filter(([category]) => category.startsWith("byte"))
+        .map(([category, value]) => ({
+          category,
+          value,
+        }))
+    : FALLBACK_CATEGORIES.filter((c) => c.category.startsWith("byte"));
+
+  return { timebase, categorybase };
 };
-
-// 2. 서브 차트 1 (Area Chart) - E.g. Network Traffic
-export interface SubChart1DataPoint {
-  time: string;
-  value: number;
-}
-
-export const mockSubChartAreaData: SubChart1DataPoint[] = [
-  { time: "1", value: 10 },
-  { time: "2", value: 45 },
-  { time: "3", value: 20 },
-  { time: "4", value: 80 },
-  { time: "5", value: 35 },
-  { time: "6", value: 60 },
-  { time: "7", value: 50 },
-];
-
-// 3. 서브 차트 2 (Bar Chart) - E.g. Active Connections by Region
-export interface SubChart2DataPoint {
-  category: string;
-  value: number;
-}
-
-export const mockSubChartBarData: SubChart2DataPoint[] = [
-  { category: "KR", value: 400 },
-  { category: "US", value: 300 },
-  { category: "JP", value: 200 },
-  { category: "EU", value: 278 },
-  { category: "SG", value: 189 },
-];

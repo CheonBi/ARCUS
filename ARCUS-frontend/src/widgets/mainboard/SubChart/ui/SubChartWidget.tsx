@@ -5,6 +5,8 @@ import type { subChartProps } from "../model/subchart.type";
 import { SubAreaChart } from "./SubAreaChart";
 import { SubBarChart } from "./SubBarChart";
 import { SubLineChart } from "./SubLineChart";
+import { type SeriesKey } from "@shared/lib/chart.constants";
+import { type TimeBasePoint, type CategoryBasePoint } from "@shared/types/chartValue";
 
 export const SubChartWidget = ({
   className,
@@ -14,18 +16,18 @@ export const SubChartWidget = ({
   icon,
   variant,
   chartType = "area",
+  subject,
   ...props
 }: subChartProps) => {
   const renderChart = () => {
+    type SharedPoint = TimeBasePoint | CategoryBasePoint;
     const chartMap = {
-      area: <SubAreaChart data={data} />,
-      bar: <SubBarChart />,
-      line: <SubLineChart data={data} />,
+      area: <SubAreaChart data={data as SharedPoint[]} subject={subject as SeriesKey | undefined} />,
+      bar: <SubBarChart data={data as SharedPoint[]} />,
+      line: <SubLineChart data={data as SharedPoint[]} subject={subject as SeriesKey | undefined} />,
     };
 
-    return (
-      chartMap[chartType] || <p className="text-xs text-[rgb(var(--nav-text))]">Unknown Chart</p>
-    );
+    return chartMap[chartType] || <p className="text-xs text-[rgb(var(--nav-text))]">Unknown Chart</p>;
   };
 
   return (

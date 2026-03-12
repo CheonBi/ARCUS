@@ -2,21 +2,12 @@ import { cn } from "@shared/lib/cn";
 import "./MainChartWidget.css";
 import { mainChartVariants } from "../model/mainChart.styles";
 import type { mainChartProps } from "../model/mainChart.types";
-import { useHiddenSeries } from "@widgets/mainboard/MainChart/lib/useHiddenSeries";
+import { useHiddenSeries } from "@shared/lib/useHiddenSeries";
 import { LINE_SERIES } from "@shared/lib/chart.constants";
-import { formatMega, formatByte } from "../lib/mainChart.formatters";
+import { formatMega, formatByte } from "../../../../shared/lib/chartData.formatters";
 import { MainChartHeader } from "./MainChartHeader";
 import { MainChartTooltip } from "./MainChartTooltip";
-import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 export const MainChartWidget = ({
   className,
@@ -35,12 +26,7 @@ export const MainChartWidget = ({
 
       {/* Recharts Area */}
       <div className="flex flex-1 items-center justify-center rounded-xl min-h-0 min-w-0 w-full h-full overflow-hidden">
-        <ResponsiveContainer
-          width="100%"
-          height="100%"
-          minHeight={150}
-          initialDimension={{ width: 1, height: 1 }}
-        >
+        <ResponsiveContainer width="100%" height="100%" minHeight={150} initialDimension={{ width: 1, height: 1 }}>
           <LineChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
             <CartesianGrid stroke="rgb(var(--layout-fg) / 0.3)" yAxisId="left" />
 
@@ -97,9 +83,7 @@ export const MainChartWidget = ({
                 return (
                   <span
                     style={{
-                      color: isHidden
-                        ? "rgb(var(--layout-fg) / 0.25)"
-                        : "rgb(var(--layout-fg) / 0.9)",
+                      color: isHidden ? "rgb(var(--layout-fg) / 0.25)" : "rgb(var(--layout-fg) / 0.9)",
                       textDecoration: isHidden ? "line-through" : "none",
                       transition: "color 0.4s ease",
                       userSelect: "none",

@@ -1,5 +1,6 @@
 import type { TooltipContentProps } from "recharts";
-import { formatMega, formatByte } from "../lib/mainChart.formatters";
+import { formatMega, formatByte } from "../../../../shared/lib/chartData.formatters";
+import { LINE_SERIES } from "@shared/lib/chart.constants";
 
 interface MainChartTooltipProps extends TooltipContentProps {
   hiddenSeries: string[];
@@ -9,12 +10,7 @@ interface MainChartTooltipProps extends TooltipContentProps {
  * MainChart 커스텀 툴팁 컴포넌트.
  * 범례에서 숨긴 시리즈는 툴팁에도 표시하지 않습니다.
  */
-export const MainChartTooltip = ({
-  active,
-  payload,
-  label,
-  hiddenSeries,
-}: MainChartTooltipProps) => {
+export const MainChartTooltip = ({ active, payload, label, hiddenSeries }: MainChartTooltipProps) => {
   if (!active || !payload || !label) return null;
 
   const visiblePayload = payload.filter((entry) => !hiddenSeries.includes(entry.dataKey as string));
@@ -26,6 +22,11 @@ export const MainChartTooltip = ({
       <p className="mb-1 text-xs font-semibold text-[rgb(var(--layout-fg))]">{label}</p>
       <div className="flex flex-col gap-1">
         {visiblePayload.map((entry, index) => {
+          const seriesConfig = LINE_SERIES.find((s) => s.dataKey === entry.dataKey);
+
+          const displayColor = seriesConfig?.stroke || entry.color;
+          const displayName = seriesConfig?.name || entry.name;
+
           const isMega = String(entry.dataKey).startsWith("mega");
           const formattedValue =
             entry.value !== null && entry.value !== undefined
@@ -36,13 +37,9 @@ export const MainChartTooltip = ({
 
           return (
             <div key={`item-${index}`} className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
-              <span className="text-xs text-[rgb(var(--layout-fg))] opacity-80 flex-1">
-                {entry.name}
-              </span>
-              <span className="text-xs font-semibold text-[rgb(var(--layout-fg))] text-right">
-                {formattedValue}
-              </span>
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: displayColor }} />
+              <span className="text-xs text-[rgb(var(--layout-fg))] opacity-80 flex-1">{displayName}</span>
+              <span className="text-xs font-semibold text-[rgb(var(--layout-fg))] text-right">{formattedValue}</span>
             </div>
           );
         })}
