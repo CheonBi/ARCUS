@@ -13,3 +13,12 @@ export interface CategoryBasePoint {
   category: string;
   value: number | null;
 }
+
+export interface ChartDataCard {
+  title: string;
+  value: string;
+  change?: string;
+  trend: "up" | "down" | "neutral";
+}
+
+export type ChartDataTrend = ChartDataCard["trend"];

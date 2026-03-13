@@ -1,5 +1,5 @@
 import type { TooltipContentProps } from "recharts";
-import { LINE_SERIES } from "@shared/lib/chart.constants";
+import { LINE_SERIES } from "@entities/chart";
 
 interface SubChartTooltipProps extends TooltipContentProps {
   valueFormatter?: (value: number | string) => string;

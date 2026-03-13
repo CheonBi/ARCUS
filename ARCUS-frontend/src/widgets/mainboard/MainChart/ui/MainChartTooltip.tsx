@@ -1,6 +1,5 @@
 import type { TooltipContentProps } from "recharts";
-import { formatMega, formatByte } from "../../../../shared/lib/chartData.formatters";
-import { LINE_SERIES } from "@shared/lib/chart.constants";
+import { formatByte, formatMega, LINE_SERIES } from "@entities/chart";
 
 interface MainChartTooltipProps extends TooltipContentProps {
   hiddenSeries: string[];

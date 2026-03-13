@@ -1,12 +1,11 @@
 import { cn } from "@shared/lib/cn";
+import { type CategoryBasePoint, type SeriesKey, type TimeBasePoint } from "@entities/chart";
 import { SubChartHeader } from "./SubChartHeader";
 import { subChartVariants } from "../model/subchart.styles";
 import type { subChartProps } from "../model/subchart.type";
 import { SubAreaChart } from "./SubAreaChart";
 import { SubBarChart } from "./SubBarChart";
 import { SubLineChart } from "./SubLineChart";
-import { type SeriesKey } from "@shared/lib/chart.constants";
-import { type TimeBasePoint, type CategoryBasePoint } from "@shared/types/chartValue";
 
 export const SubChartWidget = ({
   className,

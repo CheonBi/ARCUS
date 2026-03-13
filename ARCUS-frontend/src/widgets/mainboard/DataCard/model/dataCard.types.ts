@@ -2,9 +2,15 @@ import type { dataCardVariants } from "./dataCard.styles";
 import type { VariantProps } from "class-variance-authority";
 import type { HTMLAttributes } from "react";
 
-export interface dataCardProps
-  extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof dataCardVariants> {
+export type DataCardTrend = "up" | "down" | "neutral";
+
+export interface DataCardItem {
   title: string;
   value: string;
   change?: string;
+  trend: DataCardTrend;
 }
+
+export type dataCardProps = Omit<HTMLAttributes<HTMLDivElement>, "title"> &
+  Omit<VariantProps<typeof dataCardVariants>, "trend"> &
+  DataCardItem;

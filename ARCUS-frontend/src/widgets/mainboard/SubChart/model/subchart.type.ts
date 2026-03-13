@@ -1,8 +1,7 @@
 import type { subChartVariants } from "./subchart.styles";
 import type { VariantProps } from "class-variance-authority";
 import type { HTMLAttributes, ReactNode } from "react";
-import type { SeriesKey } from "@shared/lib/chart.constants";
-import type { CategoryBasePoint, TimeBasePoint } from "@shared/types/chartValue";
+import type { CategoryBasePoint, SeriesKey, TimeBasePoint } from "@entities/chart";
 
 interface BaseProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof subChartVariants> {
   title: string;

@@ -1,9 +1,7 @@
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Rectangle } from "recharts";
 import type { BarShapeProps } from "recharts";
+import { formatByte, LINE_SERIES, type CategoryBasePoint, type TimeBasePoint } from "@entities/chart";
 import { SubChartTooltip } from "./SubChartTooltip";
-import type { CategoryBasePoint, TimeBasePoint } from "@shared/types/chartValue";
-import { LINE_SERIES } from "@shared/lib/chart.constants";
-import { formatByte } from "@shared/lib/chartData.formatters";
 
 interface SubBarChartProps<T extends TimeBasePoint | CategoryBasePoint> {
   data: T[];

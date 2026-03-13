@@ -3,9 +3,8 @@
  * Designed to be easily replaced by real SSE / RESTful APIs in the future.
  */
 
-import type { CategoryBasePoint, TimeBasePoint } from "@shared/types/chartValue";
+import type { CategoryBasePoint, TimeBasePoint } from "./type";
 
-// Global baseline variables for random walk
 let currentMega1 = 30;
 let currentMega2 = 15;
 let currentByte1 = 300000;
@@ -13,16 +12,14 @@ let currentByte2 = 150000;
 let currentByte3 = 500000;
 let currentByte4 = 250000;
 
-// Helper function to generate a smooth random walk value
 const getSmoothValue = (current: number, maxChange: number, min: number, max: number) => {
-  const change = (Math.random() - 0.5) * 2 * maxChange; // -maxChange to +maxChange
+  const change = (Math.random() - 0.5) * 2 * maxChange;
   let nextValue = current + change;
   if (nextValue < min) nextValue = min;
   if (nextValue > max) nextValue = max;
   return Math.floor(nextValue);
 };
 
-// Next data point generator (returns just the values without time, for real-time updating)
 export const generateNextValues = () => {
   currentMega1 = getSmoothValue(currentMega1, 4, 10, 60);
   currentMega2 = getSmoothValue(currentMega2, 2, 5, 35);
@@ -55,20 +52,17 @@ const FALLBACK_CATEGORIES: CategoryBasePoint[] = Object.keys(FALLBACK_VALUES).ma
   value: null,
 }));
 
-// Generate initial mock data for the entire 24h (00:00 - 23:55)
 export const generateInitial = (): {
   timebase: TimeBasePoint[];
   categorybase: CategoryBasePoint[];
 } => {
-  //Using multiple return values
   const timebase: TimeBasePoint[] = [];
   let latestValues: ReturnType<typeof generateNextValues> | null = null;
 
   const now = new Date();
   const currentHour = now.getHours();
-  const currentMinute = Math.floor(now.getMinutes() / 5) * 5; // Using minutes rounded down to nearest 5
+  const currentMinute = Math.floor(now.getMinutes() / 5) * 5;
 
-  // Reset baselines for new initial generation
   currentMega1 = 30;
   currentMega2 = 15;
   currentByte1 = 300000;
@@ -76,12 +70,10 @@ export const generateInitial = (): {
   currentByte3 = 500000;
   currentByte4 = 250000;
 
-  // Create data points every 5 minutes for 24 hours
   for (let h = 0; h < 24; h++) {
     for (let m = 0; m < 60; m += 5) {
       const isFuture = h > currentHour || (h === currentHour && m > currentMinute);
       const timeStr = `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
-
       const newValue = generateNextValues();
 
       if (isFuture) {
@@ -100,7 +92,7 @@ export const generateInitial = (): {
           category,
           value,
         }))
-    : FALLBACK_CATEGORIES.filter((c) => c.category.startsWith("byte"));
+    : FALLBACK_CATEGORIES.filter((point) => point.category.startsWith("byte"));
 
   return { timebase, categorybase };
 };

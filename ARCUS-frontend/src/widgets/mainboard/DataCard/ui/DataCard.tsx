@@ -6,23 +6,19 @@ export const DataCard = ({ className, title, value, change, trend, ...props }: d
   const trendColor = {
     up: "text-emerald-400",
     down: "text-red-400",
-    neutral: "text-[rgb(var(--nav-text))]",
+    neutral: "text-amber-400",
   }[trend ?? "neutral"];
 
   const trendBg = {
     up: "bg-emerald-500/10",
     down: "bg-red-500/10",
-    neutral: "bg-[rgb(var(--header-border)/0.3)]",
+    neutral: "bg-amber-500/10",
   }[trend ?? "neutral"];
 
   return (
     <div className={cn(dataCardVariants({ trend, className }))} {...props}>
-      <span className="text-xs font-medium text-[rgb(var(--nav-text))] tracking-wide uppercase">
-        {title}
-      </span>
-      <span className="text-xl sm:text-2xl font-bold text-[rgb(var(--layout-fg))] tracking-tight">
-        {value}
-      </span>
+      <span className="text-xs font-medium uppercase tracking-wide text-[rgb(var(--nav-text))]">{title}</span>
+      <span className="text-xl font-bold tracking-tight text-[rgb(var(--layout-fg))] sm:text-2xl">{value}</span>
       {change && (
         <span
           className={cn(
@@ -31,8 +27,8 @@ export const DataCard = ({ className, title, value, change, trend, ...props }: d
             trendColor,
           )}
         >
-          {trend === "up" && "▲"}
-          {trend === "down" && "▼"}
+          {trend === "up" && "+"}
+          {trend === "down" && "-"}
           {change}
         </span>
       )}

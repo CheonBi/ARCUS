@@ -1,10 +1,9 @@
-import { cn } from "@shared/lib/cn";
 import "./MainChartWidget.css";
+import { cn } from "@shared/lib/cn";
+import { formatByte, formatMega, LINE_SERIES } from "@entities/chart";
+import { useHiddenSeries } from "@pages/mainboard/model";
 import { mainChartVariants } from "../model/mainChart.styles";
 import type { mainChartProps } from "../model/mainChart.types";
-import { useHiddenSeries } from "@shared/lib/useHiddenSeries";
-import { LINE_SERIES } from "@shared/lib/chart.constants";
-import { formatMega, formatByte } from "../../../../shared/lib/chartData.formatters";
 import { MainChartHeader } from "./MainChartHeader";
 import { MainChartTooltip } from "./MainChartTooltip";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
@@ -24,8 +23,7 @@ export const MainChartWidget = ({
     <div className={cn(mainChartVariants({ variant, className }))} {...props}>
       <MainChartHeader title={title} badge={badge} icon={icon} />
 
-      {/* Recharts Area */}
-      <div className="flex flex-1 items-center justify-center rounded-xl min-h-0 min-w-0 w-full h-full overflow-hidden">
+      <div className="flex h-full w-full min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden rounded-xl">
         <ResponsiveContainer width="100%" height="100%" minHeight={150} initialDimension={{ width: 1, height: 1 }}>
           <LineChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
             <CartesianGrid stroke="rgb(var(--layout-fg) / 0.3)" yAxisId="left" />
@@ -40,7 +38,6 @@ export const MainChartWidget = ({
               domain={[0, 24]}
             />
 
-            {/* Left Y-Axis (Mega) */}
             <YAxis
               yAxisId="left"
               stroke="rgb(var(--layout-fg) / 0.8)"
@@ -53,7 +50,6 @@ export const MainChartWidget = ({
               domain={[0, "auto"]}
             />
 
-            {/* Right Y-Axis (Byte) */}
             <YAxis
               yAxisId="right"
               orientation="right"
@@ -69,7 +65,7 @@ export const MainChartWidget = ({
 
             <Tooltip
               filterNull={true}
-              content={(props) => <MainChartTooltip {...props} hiddenSeries={hiddenSeries} />}
+              content={(tooltipProps) => <MainChartTooltip {...tooltipProps} hiddenSeries={hiddenSeries} />}
             />
 
             <Legend
@@ -80,6 +76,7 @@ export const MainChartWidget = ({
               onClick={handleLegendClick}
               formatter={(value, entry) => {
                 const isHidden = hiddenSeries.includes(entry.dataKey as string);
+
                 return (
                   <span
                     style={{

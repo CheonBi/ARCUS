@@ -1,8 +1,6 @@
 import { ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, LineChart, Line } from "recharts";
-import type { TimeBasePoint, CategoryBasePoint } from "@shared/types/chartValue";
+import { formatMega, LINE_SERIES, type CategoryBasePoint, type SeriesKey, type TimeBasePoint } from "@entities/chart";
 import { SubChartTooltip } from "./SubChartTooltip";
-import { formatMega } from "@shared/lib/chartData.formatters";
-import { LINE_SERIES, type SeriesKey } from "@shared/lib/chart.constants";
 
 interface SubLineChartProps<T extends TimeBasePoint | CategoryBasePoint> {
   data: T[];
