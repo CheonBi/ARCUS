@@ -1,5 +1,5 @@
 /**
- * Shared Chart 시리즈 설정 상수
+ * MainBoard 설정 상수
  * 메인보드의 여러 위젯 (MainChart, SubChart) 에서 공통으로 사용됩니다.
  */
 export type SeriesKey = "mega1" | "mega2" | "byte1" | "byte2" | "byte3" | "byte4";
