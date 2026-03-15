@@ -16,6 +16,7 @@ import { AuthGuard } from "@app/router/guards/AuthGuard";
 //Main Content
 import { MainBoardPage } from "@pages/mainboard";
 import { DailyPage } from "@pages/daily";
+import { EventLogPage } from "@pages/eventlog";
 
 /**
  * 기본 구조
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
     children: [
       { path: ROUTES.DEV_MAINBOARD, element: <MainBoardPage /> },
       { path: ROUTES.DEV_DAILY, element: <DailyPage /> },
-      { path: ROUTES.DEV_EVENT, element: <div>Event</div> },
+      { path: ROUTES.DEV_EVENT, element: <EventLogPage /> },
       { path: ROUTES.DEV_SETTINGS, element: <div>Settings</div> },
     ],
   },

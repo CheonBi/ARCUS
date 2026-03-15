@@ -21,11 +21,7 @@ export const Header = () => {
           </div>
           <nav className="hidden md:flex items-center gap-4 h-full">
             {HEADER_LINKS.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                className={({ isActive }) => navLinkVariants({ isActive })}
-              >
+              <NavLink key={link.path} to={link.path} className={({ isActive }) => navLinkVariants({ isActive })}>
                 {link.label}
               </NavLink>
             ))}
