@@ -25,7 +25,7 @@ export const EventLogSeverityButton = ({
       }}
       {...props}
     >
-      {severityMeta ? <span className={cn(eventLogFiltersStyles.severityDot, severityMeta.dotClassName)} /> : null}
+      {severityMeta ? <span className={eventLogFiltersStyles.severityDot} style={severityMeta.dotStyle} /> : null}
       <span>{label}</span>
     </button>
   );

@@ -17,7 +17,7 @@ export const EventLogDetailPanel = ({ log, className, style, ...props }: eventLo
         }}
         {...props}
       >
-        No logs match the current filter.
+        현재 조건에 맞는 전력 이벤트가 없습니다.
       </div>
     );
   }
@@ -37,9 +37,9 @@ export const EventLogDetailPanel = ({ log, className, style, ...props }: eventLo
       <div className={eventLogTableStyles.detailHeader} style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }}>
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
-            Selected Record
+            선택한 이벤트
           </p>
-          <h3 className="mt-2 text-lg font-semibold">{log.content}</h3>
+          <h3 className="mt-2 text-lg font-semibold">{log.summary}</h3>
         </div>
         <EventLogSeverityBadge severity={log.severity} />
       </div>
@@ -50,7 +50,7 @@ export const EventLogDetailPanel = ({ log, className, style, ...props }: eventLo
           style={{ borderColor: "rgb(var(--layout-fg) / 0.08)", backgroundColor: "rgb(var(--layout-fg) / 0.02)" }}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
-            Occurred At
+            발생 시각
           </p>
           <p className="mt-2 text-sm font-medium">{formatEventLogDate(log.occurredAt)}</p>
         </div>
@@ -59,15 +59,33 @@ export const EventLogDetailPanel = ({ log, className, style, ...props }: eventLo
           style={{ borderColor: "rgb(var(--layout-fg) / 0.08)", backgroundColor: "rgb(var(--layout-fg) / 0.02)" }}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
-            Zone
+            설비
           </p>
-          <p className="mt-2 text-sm font-medium">{log.zone}</p>
+          <p className="mt-2 text-sm font-medium">{log.assetName}</p>
+        </div>
+        <div
+          className={eventLogTableStyles.detailMetaCard}
+          style={{ borderColor: "rgb(var(--layout-fg) / 0.08)", backgroundColor: "rgb(var(--layout-fg) / 0.02)" }}
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
+            관측 지표
+          </p>
+          <p className="mt-2 text-sm font-medium">{log.metricLabel}</p>
+        </div>
+        <div
+          className={eventLogTableStyles.detailMetaCard}
+          style={{ borderColor: "rgb(var(--layout-fg) / 0.08)", backgroundColor: "rgb(var(--layout-fg) / 0.02)" }}
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
+            측정값
+          </p>
+          <p className="mt-2 text-sm font-medium">{log.metricValue}</p>
         </div>
       </div>
 
       <div className="mt-4 rounded-2xl border px-4 py-4" style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }}>
         <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
-          Incident Detail
+          이상 상세
         </p>
         <p className="mt-3 text-sm leading-7" style={{ color: "rgb(var(--layout-fg) / 0.82)" }}>
           {log.detail}
@@ -76,10 +94,19 @@ export const EventLogDetailPanel = ({ log, className, style, ...props }: eventLo
 
       <div className="mt-4 rounded-2xl border px-4 py-4" style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }}>
         <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
-          Severity Context
+          권고 조치
         </p>
         <p className="mt-3 text-sm leading-7" style={{ color: "rgb(var(--layout-fg) / 0.82)" }}>
-          This record is marked as {severityMeta.label.toLowerCase()} and remains available for operator trace review.
+          {log.recommendedAction}
+        </p>
+      </div>
+
+      <div className="mt-4 rounded-2xl border px-4 py-4" style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }}>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
+          등급 해석
+        </p>
+        <p className="mt-3 text-sm leading-7" style={{ color: "rgb(var(--layout-fg) / 0.82)" }}>
+          {severityMeta.description}
         </p>
       </div>
     </aside>

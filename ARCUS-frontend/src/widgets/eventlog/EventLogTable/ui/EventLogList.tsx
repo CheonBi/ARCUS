@@ -27,7 +27,7 @@ export const EventLogList = ({
         }}
         {...props}
       >
-        No logs match the current filter.
+        현재 조건에 맞는 전력 이벤트가 없습니다.
       </div>
     );
   }
@@ -45,10 +45,10 @@ export const EventLogList = ({
       <table className={eventLogTableStyles.table}>
         <thead className={eventLogTableStyles.tableHead} style={{ backgroundColor: "rgb(var(--main-bg))" }}>
           <tr>
-            <EventLogHeaderCell>Date</EventLogHeaderCell>
-            <EventLogHeaderCell>Severity</EventLogHeaderCell>
-            <EventLogHeaderCell>Content</EventLogHeaderCell>
-            <EventLogHeaderCell>Zone</EventLogHeaderCell>
+            <EventLogHeaderCell align="center">발생 시각</EventLogHeaderCell>
+            <EventLogHeaderCell align="center">심각도</EventLogHeaderCell>
+            <EventLogHeaderCell align="center">이벤트 내용</EventLogHeaderCell>
+            <EventLogHeaderCell align="center">설비</EventLogHeaderCell>
           </tr>
         </thead>
         <tbody>
@@ -64,16 +64,22 @@ export const EventLogList = ({
                 }}
                 onClick={() => onLogSelect(log.id)}
               >
-                <EventLogBodyCell emphasized style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }}>
+                <EventLogBodyCell emphasized style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }} align="center">
                   {formatEventLogDate(log.occurredAt)}
                 </EventLogBodyCell>
-                <EventLogBodyCell style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }}>
+                <EventLogBodyCell style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }} align="center">
                   <EventLogSeverityBadge severity={log.severity} />
                 </EventLogBodyCell>
-                <EventLogBodyCell className={eventLogTableStyles.contentText} style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }}>
-                  {log.content}
+                <EventLogBodyCell
+                  className={eventLogTableStyles.contentText}
+                  style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }}
+                  align="center"
+                >
+                  {log.summary}
                 </EventLogBodyCell>
-                <EventLogBodyCell style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }}>{log.zone}</EventLogBodyCell>
+                <EventLogBodyCell style={{ borderColor: "rgb(var(--layout-fg) / 0.08)" }} align="center">
+                  {log.assetName}
+                </EventLogBodyCell>
               </tr>
             );
           })}

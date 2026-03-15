@@ -17,7 +17,7 @@ export const eventLogRangeButtonVariants = cva(
   {
     variants: {
       selected: {
-        true: "border-sky-400/30 bg-sky-400/16 text-sky-50",
+        true: "border-sky-400/30 bg-sky-400/16",
         false: "",
       },
     },
@@ -32,7 +32,7 @@ export const eventLogSeverityButtonVariants = cva(
   {
     variants: {
       selected: {
-        true: "border-sky-400/30 bg-sky-400/16 text-sky-50",
+        true: "border-sky-400/30 bg-sky-400/16",
         false: "",
       },
     },

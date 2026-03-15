@@ -27,16 +27,16 @@ export const EventLogFiltersWidget = ({
     >
       <div className={eventLogFiltersStyles.content}>
         <div className={eventLogFiltersStyles.textBlock}>
-          <h2 className={eventLogFiltersStyles.title}>Event Log Filters</h2>
+          <h2 className={eventLogFiltersStyles.title}>전력 이벤트 조회 조건</h2>
           <p className={eventLogFiltersStyles.description} style={{ color: "rgb(var(--layout-fg) / 0.7)" }}>
-            Review recent incidents by time window and severity, then drill into a specific record from the table.
+            최근 전력 설비 이벤트를 기간과 등급으로 좁혀 보고, 표에서 항목을 선택해 상세 원인과 권고 조치를 확인합니다.
           </p>
         </div>
 
         <div className={eventLogFiltersStyles.controls}>
           <div>
             <p className={eventLogFiltersStyles.groupLabel} style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
-              Time Window
+              조회 기간
             </p>
             <div className={eventLogFiltersStyles.group}>
               {EVENT_LOG_RANGE_OPTIONS.map((option) => (
@@ -53,7 +53,7 @@ export const EventLogFiltersWidget = ({
 
           <div>
             <p className={eventLogFiltersStyles.groupLabel} style={{ color: "rgb(var(--layout-fg) / 0.55)" }}>
-              Severity
+              이벤트 등급
             </p>
             <div className={eventLogFiltersStyles.group}>
               {EVENT_LOG_SEVERITY_OPTIONS.map((option) => (

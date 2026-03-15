@@ -56,19 +56,20 @@ export const eventLogBodyCellVariants = cva("border-b px-4 py-4 align-top", {
 });
 
 export const eventLogTableStyles = {
-  header: "flex flex-col gap-4 border-b pb-4 xl:flex-row xl:items-end xl:justify-between",
+  header: "flex flex-col gap-4 border-b pb-4",
   textBlock: "space-y-1",
   title: "text-xl font-semibold",
   description: "text-sm",
-  summary: "grid gap-3 sm:grid-cols-3",
+  summary: "grid gap-5 sm:grid-cols-3",
   summaryCard: "rounded-2xl border px-4 py-3",
   summaryLabel: "text-xs font-semibold uppercase tracking-[0.14em]",
   summaryValue: "mt-2 text-2xl font-semibold",
-  content: "mt-5 grid min-h-0 gap-5 xl:grid-cols-[minmax(0,1.7fr)_minmax(320px,0.9fr)]",
+  content: "grid gap-5 xl:grid-cols-3 mt-5 min-h-0",
   table: "min-w-full border-separate border-spacing-0 text-sm",
   tableHead: "sticky top-0 z-10",
   tableRow: "cursor-pointer transition-colors",
-  severityBadge: "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em]",
+  severityBadge:
+    "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em]",
   severityDot: "h-2.5 w-2.5 rounded-full",
   contentText: "max-w-[340px] min-w-[220px] whitespace-normal leading-6",
   detailPanel: "rounded-3xl border p-5",
