@@ -5,9 +5,9 @@ export const dataCardVariants = cva(
   {
     variants: {
       trend: {
-        up: "border-emerald-500/20 bg-emerald-500/5 hover:border-emerald-500/40",
-        down: "border-red-500/20 bg-red-500/5 hover:border-red-500/40",
-        neutral: "border-[rgb(var(--header-border))] bg-[rgb(var(--main-bg))]",
+        up: "border-emerald-500/40 bg-emerald-500/5 hover:border-emerald-500/40",
+        down: "border-red-500/40 bg-red-500/5 hover:border-red-500/40",
+        neutral: "border-amber-500/40 bg-amber-500/5 hover:border-amber-500/40",
       },
     },
     defaultVariants: {

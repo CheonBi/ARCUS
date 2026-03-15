@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { LegendPayload } from "recharts";
 
 /**
  * 레전드 클릭으로 숨겨진 시리즈 목록을 관리하는 custom hook.
@@ -6,8 +7,7 @@ import { useState } from "react";
 export const useHiddenSeries = () => {
   const [hiddenSeries, setHiddenSeries] = useState<string[]>([]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleLegendClick = (e: any) => {
+  const handleLegendClick = (e: LegendPayload) => {
     const dataKey = e.dataKey as string;
     if (!dataKey) return;
 

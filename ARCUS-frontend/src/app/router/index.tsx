@@ -12,7 +12,10 @@ import { NotFoundPage } from "@pages/errors/ui/NotFoundPage";
 import { ForbiddenPage } from "@pages/errors/ui/ForbiddenPage";
 import { guarded } from "@app/router/guards/helpers";
 import { AuthGuard } from "@app/router/guards/AuthGuard";
-import { MainBoardPage } from "@pages/mainboard/ui/MainBoardPage";
+
+//Main Content
+import { MainBoardPage } from "@pages/mainboard";
+import { DailyPage } from "@pages/daily";
 
 /**
  * 기본 구조
@@ -31,7 +34,7 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: ROUTES.DEV_MAINBOARD, element: <MainBoardPage /> },
-      { path: ROUTES.DEV_DAILY, element: <div>Daily</div> },
+      { path: ROUTES.DEV_DAILY, element: <DailyPage /> },
       { path: ROUTES.DEV_EVENT, element: <div>Event</div> },
       { path: ROUTES.DEV_SETTINGS, element: <div>Settings</div> },
     ],
