@@ -4,7 +4,7 @@ import { DataCardGridWidget } from "@widgets/mainboard/DataCard";
 import { MainChartWidget } from "@widgets/mainboard/MainChart";
 import { SubChartWidget } from "@widgets/mainboard/SubChart";
 
-export const MainBoardPage = () => {
+const MainBoardPage = () => {
   const { time, category, cards } = useMainboardChartData();
 
   return (
@@ -21,3 +21,5 @@ export const MainBoardPage = () => {
     </div>
   );
 };
+
+export { MainBoardPage };

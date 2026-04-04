@@ -2,8 +2,14 @@ import { getDailyRangeSummary } from "@entities/chart";
 import { cn } from "@shared/lib/cn";
 import { dailyMetricsStyles, dailyMetricsVariants } from "../model/styles";
 import type { dailyMetricsProps } from "../model/types";
-import { DailyMetricsChart } from "./DailyMetricsChart";
 import { DailyMetricsTable } from "./DailyMetricsTable";
+import { lazy, Suspense } from "react";
+
+const DailyMetricsChart = lazy(() =>
+  import("./DailyMetricsChart").then((module) => ({
+    default: module.DailyMetricsChart,
+  })),
+);
 
 export const DailyMetricsWidget = ({
   selectedRange,
@@ -55,7 +61,9 @@ export const DailyMetricsWidget = ({
 
       <div className={dailyMetricsStyles.content}>
         {selectedView === "chart" ? (
-          <DailyMetricsChart selectedRange={selectedRange} chartData={chartData} />
+          <Suspense fallback={<div className="min-h-[260px]" />}>
+            <DailyMetricsChart selectedRange={selectedRange} chartData={chartData} />
+          </Suspense>
         ) : (
           <DailyMetricsTable
             selectedRange={selectedRange}

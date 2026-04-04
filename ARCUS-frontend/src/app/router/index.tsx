@@ -14,9 +14,6 @@ import { guarded } from "@app/router/guards/helpers";
 import { AuthGuard } from "@app/router/guards/AuthGuard";
 
 //Main Content
-import { MainBoardPage } from "@pages/mainboard";
-import { DailyPage } from "@pages/daily";
-import { EventLogPage } from "@pages/eventlog";
 
 /**
  * 기본 구조
@@ -34,9 +31,27 @@ export const router = createBrowserRouter([
     path: ROUTES.APP_DEV,
     element: <MainLayout />,
     children: [
-      { path: ROUTES.DEV_MAINBOARD, element: <MainBoardPage /> },
-      { path: ROUTES.DEV_DAILY, element: <DailyPage /> },
-      { path: ROUTES.DEV_EVENT, element: <EventLogPage /> },
+      {
+        path: ROUTES.DEV_MAINBOARD,
+        lazy: async () => {
+          const { MainBoardPage } = await import("@pages/mainboard");
+          return { Component: MainBoardPage };
+        },
+      },
+      {
+        path: ROUTES.DEV_DAILY,
+        lazy: async () => {
+          const { DailyPage } = await import("@pages/daily");
+          return { Component: DailyPage };
+        },
+      },
+      {
+        path: ROUTES.DEV_EVENT,
+        lazy: async () => {
+          const { EventLogPage } = await import("@pages/eventlog");
+          return { Component: EventLogPage };
+        },
+      },
       { path: ROUTES.DEV_SETTINGS, element: <div>Settings</div> },
     ],
   },

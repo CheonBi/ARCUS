@@ -4,13 +4,25 @@ import { cn } from "@shared/lib/cn";
 import { dailyMetricsChartVariants } from "../model/styles";
 import type { dailyMetricsChartProps } from "../model/types";
 
-export const DailyMetricsChart = ({ selectedRange, chartData, className, density, ...props }: dailyMetricsChartProps) => {
+export const DailyMetricsChart = ({
+  selectedRange,
+  chartData,
+  className,
+  density,
+  ...props
+}: dailyMetricsChartProps) => {
   return (
     <div className={cn(dailyMetricsChartVariants({ density }), className)} {...props}>
       <ResponsiveContainer width="100%" height="100%" minHeight={260} initialDimension={{ width: 1, height: 1 }}>
         <ComposedChart data={chartData} margin={{ top: 12, right: 12, left: 0, bottom: 8 }}>
           <CartesianGrid stroke="rgb(var(--layout-fg) / 0.08)" vertical={false} />
-          <XAxis dataKey="label" tickLine={false} axisLine={false} tickMargin={12} stroke="rgb(var(--layout-fg) / 0.58)" />
+          <XAxis
+            dataKey="label"
+            tickLine={false}
+            axisLine={false}
+            tickMargin={12}
+            stroke="rgb(var(--layout-fg) / 0.58)"
+          />
           <YAxis
             yAxisId="left"
             tickLine={false}
