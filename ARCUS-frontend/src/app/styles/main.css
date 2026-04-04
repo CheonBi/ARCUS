@@ -4,11 +4,15 @@
 @import "./layout.css";
 
 @theme {
-  --font-pretendard: "Pretendard", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+  --font-pretendard:
+    "Pretendard", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 body {
+  font-family: var(--font-pretendard);
+}
+
+pre {
   font-family: var(--font-pretendard);
 }
 
@@ -19,4 +23,3 @@ body {
 .recharts-layer {
   outline: none !important;
 }
-
