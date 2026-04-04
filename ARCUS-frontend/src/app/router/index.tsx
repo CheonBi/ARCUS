@@ -52,7 +52,13 @@ export const router = createBrowserRouter([
           return { Component: EventLogPage };
         },
       },
-      { path: ROUTES.DEV_SETTINGS, element: <div>Settings</div> },
+      {
+        path: ROUTES.DEV_SETTINGS,
+        lazy: async () => {
+          const { ParamConfigPage } = await import("@pages/paramconfig");
+          return { Component: ParamConfigPage };
+        },
+      },
     ],
   },
 
