@@ -1,1 +1,1 @@
-export { ROUTES, entryRoutes, appRoutes, devRoutes, routeParams } from "./routes";
+export { ROUTES, routes, entryRoutes, appRoutes, devRoutes, routeParams } from "./routes";

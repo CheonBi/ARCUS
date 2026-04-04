@@ -1,15 +1,8 @@
 import { NavLink } from "react-router";
 import { PageContainer } from "@shared/layout/PageContainer";
-import { routes } from "@shared/consts/routes";
-import { navLinkVariants } from "./header.styles";
+import { navLinkVariants } from "../model/styles";
 import { ThemeToggle } from "@features/theme";
-
-const HEADER_LINKS = [
-  { label: "Mainboard", path: routes.dev.mainboard() },
-  { label: "Daily", path: routes.dev.daily() },
-  { label: "Event", path: routes.dev.event() },
-  { label: "Settings", path: routes.dev.settings() },
-];
+import { HEADER_LINKS } from "../model/types";
 
 export const Header = () => {
   return (
@@ -21,11 +14,7 @@ export const Header = () => {
           </div>
           <nav className="hidden md:flex items-center gap-4 h-full">
             {HEADER_LINKS.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                className={({ isActive }) => navLinkVariants({ isActive })}
-              >
+              <NavLink key={link.path} to={link.path} className={({ isActive }) => navLinkVariants({ isActive })}>
                 {link.label}
               </NavLink>
             ))}

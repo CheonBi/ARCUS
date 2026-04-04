@@ -1,5 +1,5 @@
 /**
- * Y축 및 툴팁에서 사용하는 값 포맷 유틸리티 함수
+ * 포맷 유틸리티 함수
  */
 
 export const formatMega = (value: number) => {
@@ -40,6 +40,7 @@ export const formatDayLabel = (date: Date) => {
 
 export const formatHourLabel = (hour: number) => `${String(hour).padStart(2, "0")}:00`;
 
+//constant
 export const numberFormatter = new Intl.NumberFormat("ko-KR");
 export const percentFormatter = new Intl.NumberFormat("ko-KR", {
   minimumFractionDigits: 1,

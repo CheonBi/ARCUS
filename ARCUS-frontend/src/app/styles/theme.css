@@ -29,6 +29,15 @@
   --nav-text-active: 255 255 255; /* white */
   --nav-bg-hover: 51 65 85; /* slate-700 */
   --nav-bg-active: 30 41 59; /* slate-800 */
+
+  --severity-error-strong: 253 164 175; /* rose-300 */
+  --severity-error-surface: 244 63 94; /* rose-500 */
+  --severity-warning-strong: 253 230 138; /* amber-200 */
+  --severity-warning-surface: 245 158 11; /* amber-500 */
+  --severity-success-strong: 167 243 208; /* emerald-200 */
+  --severity-success-surface: 16 185 129; /* emerald-500 */
+  --severity-info-strong: 186 230 253; /* sky-200 */
+  --severity-info-surface: 14 165 233; /* sky-500 */
 }
 
 /* ============ Light Theme Overrides ============ */
@@ -53,6 +62,15 @@ body[data-theme="light"] {
   --nav-text-active: 30 41 59; /* slate-800 */
   --nav-bg-hover: 206 232 210; /* slate-200 */
   --nav-bg-active: 206 232 210; /* slate-300 */
+
+  --severity-error-strong: 190 24 93; /* rose-700 */
+  --severity-error-surface: 244 63 94; /* rose-500 */
+  --severity-warning-strong: 161 98 7; /* amber-700 */
+  --severity-warning-surface: 245 158 11; /* amber-500 */
+  --severity-success-strong: 4 120 87; /* emerald-700 */
+  --severity-success-surface: 16 185 129; /* emerald-500 */
+  --severity-info-strong: 3 105 161; /* sky-700 */
+  --severity-info-surface: 14 165 233; /* sky-500 */
 
   --toggle-icon-color: rgb(var(--nav-text));
 }
