@@ -1,0 +1,1 @@
+export { useParamConfigData } from "./useParamConfigData";
