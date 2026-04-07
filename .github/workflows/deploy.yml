@@ -1,57 +1,92 @@
-# ARCUS Deploy
-
 name: ARCUS CD
 
 on:
-  # Works when pushed to deploy branch
-  push:
-    branches:
-      - main
+  workflow_run: # 특정 워크플로우와 연동
+    workflows:
+      - ARCUS GHCR CI # 이 워크플로우가 끝났을 때 트리거
+    types:
+      - completed # 성공/실패 여부 상관없이 "완료"되면 실행 (이후 if문에서 성공만 걸러냄)
+  workflow_dispatch: # 관리자가 수동으로 배포 버튼을 누를 수 있도록 허용
+
+permissions:
+  contents: read
+  packages: read # GHCR에서 이미지를 가져오기 위해 읽기 권한 필요
+
+concurrency: # 배포 중복 방지
+  group: arcus-cd-production # 운영 서버 배포는 반드시 한 번에 하나만 진행
+  cancel-in-progress: true # 이전 배포가 진행 중이면 취소하고 최신 배포 수행
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository_owner }}/arcus-frontend
+  DEPLOY_DIR: /home/${{ secrets.GCP_USER }}/arcus-deploy # 서버 내 배포 경로
 
 jobs:
   deploy:
+    # 배포 실행 조건:
+    # 1. 수동 실행했거나
+    # 2. CI 워크플로우 결과가 '성공'이고 + 대상 브랜치가 'main'이며 + 'push' 이벤트였을 때만
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main' &&
+        github.event.workflow_run.event == 'push'
+      )
     runs-on: ubuntu-latest
-
     steps:
-      - name: Add Remote Host Key to Known Hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.GCP_IP }} >> ~/.ssh/known_hosts
+      - name: Checkout code # 1. 배포에 필요한 설정 파일(Compose 등)을 가져옴
+        uses: actions/checkout@v5
+        with:
+          # CI를 했던 정확한 커밋 버전의 코드를 가져옴
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
-      # Deploy to main server via SSH
-      - name: Deploy to Server via SSH
+      - name: Prepare deployment directory # 2. 서버에 배포 디렉토리 생성
+        uses: appleboy/ssh-action@v1.0.3 # SSH 접속 액션
+        with:
+          host: ${{ secrets.GCP_IP }}
+          username: ${{ secrets.GCP_USER }}
+          key: ${{ secrets.GCP_PRIVATE_KEY }}
+          port: 22
+          script: |
+            mkdir -p "${{ env.DEPLOY_DIR }}/conf"
+
+      - name: Upload compose and nginx config # 3. 설정 파일들을 서버로 전송
+        uses: appleboy/scp-action@v0.1.7 # 파일 전송 액션
+        with:
+          host: ${{ secrets.GCP_IP }}
+          username: ${{ secrets.GCP_USER }}
+          key: ${{ secrets.GCP_PRIVATE_KEY }}
+          port: 22
+          source: "docker-compose.deploy.yaml,conf/nginx.conf" # 전송할 파일들
+          target: ${{ env.DEPLOY_DIR }} # 서버 내 목적지
+          overwrite: true # 기존 파일 덮어쓰기
+
+      - name: Pull image from GHCR and restart services # 4. 이미지 갱신 및 컨테이너 재시작
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.GCP_IP}}
-          username: ${{secrets.GCP_USER}}
-          key: ${{ secrets.GCP_PRIVATE_KEY}}
+          host: ${{ secrets.GCP_IP }}
+          username: ${{ secrets.GCP_USER }}
+          key: ${{ secrets.GCP_PRIVATE_KEY }}
           port: 22
-
           script: |
-            REMOTE_DIR="/home/${{secrets.GCP_USER}}/ARCUS"
-            REPO_URL="git@ARCUS-git:CheonBi/ARCUS.git"
-            TARGET_BRANCH="main"
+            set -eu # 에러 발생 시 즉시 중단
 
-            echo "Checking deployment directory on server..."
+            # CI 단계에서 생성했던 것과 동일한 SHA 태그 추출
+            IMAGE_TAG="sha-${{ github.event.workflow_run.head_sha || github.sha }}"
 
-            if [ ! -d "${REMOTE_DIR}" ]; then
-              echo "Directory not found. Cloning repository ${REPO_URL}..."
-              cd /home/${{secrets.GCP_USER}}
-              git clone ${REPO_URL}
-              cd ${REMOTE_DIR}
-              git checkout ${TARGET_BRANCH}
-            else
-              echo "Directory exists. Moving and pulling latest code on branch ${TARGET_BRANCH}..."
-              cd ${REMOTE_DIR}
-              git pull origin ${TARGET_BRANCH}
-            fi
+            cd "${{ env.DEPLOY_DIR }}"
 
-            echo "Starting local Docker Compose build and deployment..."
+            # .env 파일 동적 생성: Docker Compose가 이 파일을 읽어 이미지 버전을 결정함
+            cat > .env <<EOF
+            FRONTEND_IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            IMAGE_TAG=${IMAGE_TAG}
+            TZ=Asia/Seoul
+            EOF
 
-            docker compose down
+            # 서버 내에서 GHCR 로그인 (이미지 pull을 위해)
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
-            docker compose build
-
-            docker compose up -d
-
-            echo "Deployment completed successfully on Ubuntu server!"
+            # 최신 이미지 다운로드 및 컨테이너 교체
+            docker compose -f docker-compose.deploy.yaml pull
+            docker compose -f docker-compose.deploy.yaml up -d --remove-orphans

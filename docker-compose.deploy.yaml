@@ -6,27 +6,26 @@ networks:
 
 services:
   frontend:
+    image: ${FRONTEND_IMAGE:?FRONTEND_IMAGE is required}:${IMAGE_TAG:-latest}
     container_name: arcus_frontend
     restart: always
-    build:
-      context: ./ARCUS-frontend
-      dockerfile: dockerfile
+    pull_policy: always
     networks:
       - arcus-network
     environment:
-      TZ: Asia/Seoul
+      TZ: ${TZ:-Asia/Seoul}
 
   nginx:
-    image: nginx:latest
+    image: nginx:stable-alpine
+    container_name: arcus_nginx_proxy
+    restart: always
     networks:
       - arcus-network
     environment:
-      TZ: Asia/Seoul
-    restart: always
+      TZ: ${TZ:-Asia/Seoul}
     volumes:
-      - ./conf/:/etc/nginx/conf.d
-    container_name: arcus_nginx_proxy
+      - ./conf/:/etc/nginx/conf.d:ro
     ports:
-      - 80:80
+      - "80:80"
     depends_on:
       - frontend

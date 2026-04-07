@@ -1,0 +1,86 @@
+name: ARCUS GHCR CI
+
+on: # 이 워크플로우를 실행시킬 '이벤트' 정의
+  push: # 코드가 푸시되었을 때
+    branches:
+      - main # main 브랜치에 푸시될 때만 실행
+    paths: ## 특정 경로의 파일이 변경되었을 때만 트리거 (불필요한 빌드 방지)
+      - ARCUS-frontend/**
+      - .github/workflows/ghcr-ci.yml
+      - .github/workflows/deploy.yml
+      - docker-compose.deploy.yaml
+  pull_request: # PR이 생성되거나 업데이트되었을 때
+    branches:
+      - main
+    paths:
+      - ARCUS-frontend/**
+      - .github/workflows/ghcr-ci.yml
+      - .github/workflows/deploy.yml
+      - docker-compose.deploy.yaml
+  workflow_dispatch: # 사용자가 GitHub 웹 UI에서 'Run workflow' 버튼을 눌러 수동 실행 가능
+
+permissions: # GITHUB_TOKEN의 권한 설정
+  contents: read # 레포지토리 코드 읽기 권한
+  packages: write # GHCR에 이미지 저장(Push)을 위한 패키지 쓰기 권한
+
+concurrency: # 동시성 제어: 같은 브랜치에서 새 작업이 시작되면 이전 작업은 취소함
+  group: arcus-ci-${{ github.ref }} # 브랜치/태그별로 그룹화
+  cancel-in-progress: true # 동일 그룹 내 실행 중인 작업이 있다면 중단하고 최신 것만 실행
+
+env: # 워크플로우 전체에서 사용할 변수
+  REGISTRY: ghcr.io # GitHub 컨테이너 레지스트리 주소
+  IMAGE_NAME: ${{ github.repository_owner }}/arcus-frontend # 이미지 저장 경로 (계정명/이미지명)
+
+jobs:
+  build-and-push: # 작업 단위 (하나의 가상 머신에서 실행됨)
+    runs-on: ubuntu-latest # 최신 우분투 환경에서 실행
+
+    steps:
+      - name: Checkout code # 1. 레포지토리 코드를 가상 머신으로 가져오기
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js # 2. Node.js 실행 환경 구축
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22.20.0" # 프로젝트에 맞는 노드 버전
+          cache: npm # npm 캐시를 사용하여 라이브러리 설치 속도 향상
+          cache-dependency-path: ARCUS-frontend/package-lock.json
+
+      - name: Install dependencies # 3. 의존성 라이브러리 설치
+        working-directory: ./ARCUS-frontend # 작업 디렉토리 지정
+        run: npm ci # package-lock.json에 명시된 버전 그대로 클린 설치
+
+      - name: Build application # 4. 프론트엔드 정적 파일 빌드
+        working-directory: ./ARCUS-frontend
+        run: npm run build
+
+      - name: Set up Docker Buildx # 5. 고급 빌드 기능을 가진 Docker Buildx 설정
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR # 6. GHCR 로그인 (PR 시에는 이미지를 올리지 않으므로 제외)
+        if: github.event_name != 'pull_request' # PR 이벤트가 아닐 때만 실행 즉, main에 PR이 merge될 때 실행됨
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }} # 워크플로우를 실행한 사용자 ID
+          password: ${{ secrets.GITHUB_TOKEN }} # 자동 생성되는 보안 토큰
+
+      - name: Extract Docker metadata # 7. 이미지에 붙일 태그 정보 생성
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: | # 태그 규칙: 메인 브랜치면 latest, 그 외엔 commit SHA 값 사용
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=sha-
+
+      - name: Build and push image # 8. Docker 이미지 빌드 및 업로드
+        uses: docker/build-push-action@v6
+        with:
+          context: ./ARCUS-frontend # Docker 빌드 컨텍스트
+          file: ./ARCUS-frontend/dockerfile # 사용할 Dockerfile 경로
+          push: ${{ github.event_name != 'pull_request' }} # PR일 때는 빌드만 하고 Push는 안함
+          tags: ${{ steps.meta.outputs.tags }} # 7단계에서 생성한 태그 적용
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha # GitHub Actions 캐시를 사용하여 빌드 속도 최적화
+          cache-to: type=gha,mode=max # 레이어 캐시 저장
